@@ -1,0 +1,304 @@
+---
+import { practices, whatsapp } from "../data/site";
+import { expertise } from "../data/expertise";
+import { services } from "../data/services";
+import Icon from "./Icon.astro";
+interface Props {
+  consultation?: boolean;
+  selected?: string;
+}
+const { consultation = false, selected } = Astro.props;
+const matterGroups: [string, string[]][] = [
+  ["Our Expertise", expertise.map((e) => e.title)],
+  ["Our Services", services.map((e) => e.title)],
+  [
+    "Other Practice Areas",
+    practices
+      .map((p) => p.title)
+      .filter((t) => ![...expertise, ...services].some((e) => e.title === t)),
+  ],
+];
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
+---
+
+<form class="inquiry-form" data-endpoint={endpoint} data-whatsapp={whatsapp} novalidate>
+  <h3>{consultation ? "Request a Consultation" : "Send Us a Message"}</h3>
+  <p class="form-intro">
+    {consultation
+      ? "Tell us a little about your matter. We will contact you to confirm a time."
+      : "Fill in your details and we will get back to you soon."}
+  </p>
+  <div class="form-grid">
+    <label>
+      Full name <span>*</span>
+      <input
+        name="name"
+        autocomplete="name"
+        required
+        maxlength="100"
+        placeholder="Full name"
+      />
+      <span class="field-error"></span>
+    </label>
+    <label>
+      Email address <span>*</span>
+      <input
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        maxlength="180"
+        placeholder="Email address"
+      />
+      <span class="field-error"></span>
+    </label>
+    <label>
+      Mobile number <span>*</span>
+      <input
+        name="phone"
+        type="tel"
+        autocomplete="tel"
+        required
+        pattern="[+0-9 \(\)\-]{10,20}"
+        placeholder="Mobile number"
+      />
+      <span class="field-error"></span>
+    </label>
+    {consultation ? (
+      <>
+        <label>
+          Preferred contact method
+          <select name="contactMethod">
+            <option>Phone call</option>
+            <option>Email</option>
+          </select>
+        </label>
+        <label>
+          Practice area
+          <select name="practice">
+            <option>Help me choose</option>
+            {matterGroups.map(([label, titles]) => (
+              <optgroup label={label}>
+                {titles.map((t) => (
+                  <option selected={t === selected}>{t}</option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </label>
+        <label>
+          Preferred date
+          <input name="date" type="date" />
+          <span class="field-error"></span>
+        </label>
+        <label class="full">
+          Preferred time
+          <select name="time">
+            <option>Any time — please contact me</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+          </select>
+        </label>
+      </>
+    ) : (
+      <label>
+        Subject <span>*</span>
+        <input
+          name="subject"
+          required
+          maxlength="150"
+          placeholder="Subject"
+        />
+        <span class="field-error"></span>
+      </label>
+    )}
+    <label class="full">
+      {consultation ? "Short description of your matter" : "Your message"}{" "}
+      <span>*</span>
+      <textarea
+        name="message"
+        rows="4"
+        required
+        maxlength="3000"
+        placeholder="Share a brief overview. Please avoid confidential details."
+      ></textarea>
+      <span class="field-error"></span>
+    </label>
+  </div>
+  <div class="honeypot" aria-hidden="true">
+    <label>
+      Leave blank
+      <input name="website" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  <label class="consent">
+    <input type="checkbox" name="consent" required />
+    <span>
+      I agree to be contacted about this enquiry and have read the{" "}
+      <a href="/privacy-policy/">privacy policy</a>.
+      <span class="field-error"></span>
+    </span>
+  </label>
+  <div class="form-actions">
+    <button class="button" type="submit" name="via" value="email">
+      <Icon name="send" size={18} />
+      <span>{endpoint ? (consultation ? "Request Consultation" : "Send Message") : "Send via Email"}</span>
+    </button>
+    <button class="button button-whatsapp" type="submit" name="via" value="whatsapp">
+      <Icon name="whatsapp" size={18} />
+      <span>Send via WhatsApp</span>
+    </button>
+  </div>
+  <p class="small">
+    {endpoint
+      ? "A request does not confirm an appointment. We will contact you to discuss availability."
+      : "Your message opens in your email or WhatsApp app for you to review and send. Nothing is submitted automatically."}
+  </p>
+  <p class="form-status" role="status" aria-live="polite"></p>
+  <a
+    class="email-draft text-link"
+    hidden
+    href="mailto:legal@kslegalconsultants.com"
+    rel="noopener noreferrer"
+  >
+    Open your app to send the enquiry ↗
+  </a>
+  <noscript>
+    <p>
+      Please call <a href="tel:+918008286868">8008286868</a> or email{" "}
+      <a href="mailto:legal@kslegalconsultants.com">
+        legal@kslegalconsultants.com
+      </a>{" "}
+      to enquire.
+    </p>
+  </noscript>
+</form>
+<script>
+  document
+    .querySelectorAll<HTMLFormElement>(".inquiry-form")
+    .forEach((form) => {
+      const fields = [
+        ...form.querySelectorAll<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >('input:not([name="website"]),textarea,select'),
+      ];
+      const date = form.querySelector<HTMLInputElement>('[type="date"]');
+      if (date) {
+        const now = new Date();
+        date.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+      }
+      fields.forEach((field, index) => {
+        const error = field
+          .closest("label")
+          ?.querySelector<HTMLElement>(".field-error");
+        if (error) {
+          error.id = `error-${index}`;
+          field.setAttribute("aria-describedby", error.id);
+        }
+      });
+      const validate = (field: (typeof fields)[number]) => {
+        let message = "";
+        if (!field.checkValidity()) {
+          message = field.validity.valueMissing
+            ? "Please complete this field."
+            : field.validity.typeMismatch
+              ? "Please enter a valid email address."
+              : field.validity.rangeUnderflow
+                ? "Please choose today or a future date."
+                : "Please enter a valid phone number (10–20 characters).";
+        }
+        if (field.name === "phone" && !message) {
+          const digits = field.value.replace(/\D/g, "");
+          if (digits.length < 10 || digits.length > 15)
+            message = "Please enter a phone number with 10–15 digits.";
+        }
+        if (field.required && field.type !== "checkbox" && !field.value.trim())
+          message = "Please complete this field.";
+        field.setAttribute("aria-invalid", String(Boolean(message)));
+        const error = field.closest("label")?.querySelector(".field-error");
+        if (error) error.textContent = message;
+        return !message;
+      };
+      fields.forEach((field) =>
+        field.addEventListener("input", () => {
+          if (field.getAttribute("aria-invalid") === "true") validate(field);
+        }),
+      );
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const status = form.querySelector<HTMLElement>(".form-status")!;
+        const draft = form.querySelector<HTMLAnchorElement>(".email-draft")!;
+        draft.hidden = true;
+        status.textContent = "";
+        const invalid = fields.filter((field) => !validate(field));
+        if (invalid.length) {
+          invalid[0].focus();
+          status.textContent = "Please check the highlighted fields.";
+          return;
+        }
+        const data = new FormData(form);
+        if (data.get("website")) return;
+        const via =
+          (event as SubmitEvent).submitter?.getAttribute("value") || "email";
+        const labels: Record<string, string> = {
+          name: "Name",
+          email: "Email",
+          phone: "Mobile",
+          subject: "Subject",
+          contactMethod: "Preferred contact",
+          practice: "Practice area",
+          date: "Preferred date",
+          time: "Preferred time",
+          message: "Message",
+        };
+        const summary = [...data.entries()]
+          .filter(([key, value]) => key in labels && String(value).trim())
+          .map(([key, value]) => `${labels[key]}: ${value}`)
+          .join("\n");
+        if (via === "whatsapp") {
+          const url = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(`Hello KS Legal Consultants,\n\n${summary}`)}`;
+          draft.href = url;
+          draft.target = "_blank";
+          draft.textContent = "Open WhatsApp to send your enquiry ↗";
+          draft.hidden = false;
+          status.textContent =
+            "Your WhatsApp message is ready. Review it and press send in WhatsApp. Your enquiry has not been sent yet.";
+          window.open(url, "_blank", "noopener");
+          return;
+        }
+        const endpoint = form.dataset.endpoint;
+        if (!endpoint) {
+          draft.href = `mailto:legal@kslegalconsultants.com?subject=${encodeURIComponent(String(data.get("subject") || "Consultation enquiry"))}&body=${encodeURIComponent(summary)}`;
+          draft.removeAttribute("target");
+          draft.textContent = "Open your email app to send the enquiry ↗";
+          draft.hidden = false;
+          status.textContent =
+            "Your email draft is ready. Use the link below to review and send it. Your enquiry has not been sent.";
+          draft.focus();
+          return;
+        }
+        const button = form.querySelector<HTMLButtonElement>(
+          'button[type="submit"]',
+        )!;
+        button.disabled = true;
+        status.textContent = "Sending your enquiry…";
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
+          });
+          if (!response.ok) throw new Error("Delivery failed");
+          status.textContent =
+            "Your enquiry has been received. We will contact you to discuss next steps. An appointment is not yet confirmed.";
+          form.reset();
+        } catch {
+          status.textContent =
+            "We could not send your enquiry. Your details are still here. Please try again or contact us by phone or email.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+</script>

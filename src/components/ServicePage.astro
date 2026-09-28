@@ -1,0 +1,153 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import PageHero from "./PageHero.astro";
+import CTA from "./CTA.astro";
+import Icon from "./Icon.astro";
+import ContactForm from "./ContactForm.astro";
+import type { LegalService } from "../data/types";
+import { serviceImages, serviceImagePosition } from "../data/serviceImages";
+import { process, whatsapp } from "../data/site";
+
+interface Props {
+  service: LegalService;
+  siblings: LegalService[];
+}
+const { service: s, siblings } = Astro.props;
+const groupLabel = s.group === "expertise" ? "Our Expertise" : "Our Services";
+const groupHref = `/${s.group}/`;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LegalService",
+      name: `${s.heading} | KS Legal Consultants`,
+      description: s.summary,
+      url: pageUrl,
+      areaServed: ["Hyderabad", "Telangana", "Andhra Pradesh"],
+      provider: { "@type": "LegalService", name: "KS Legal Consultants", telephone: "+918008286868" },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: s.faqs.map(([q, a]) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout title={s.heading} description={s.summary} schema={schema}>
+  <PageHero eyebrow={s.title} crumbs={[[groupLabel, groupHref]]} title={s.heading} description={s.summary} />
+
+  <section class="section">
+    <div class="container svc-intro">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>{groupLabel}</p>
+        <h2>How we can help with {s.title.toLowerCase()}</h2>
+        {s.intro.map((p) => <p>{p}</p>)}
+        <div class="svc-actions">
+          <a class="button" href="/consultation/"><span>Book a Consultation</span> <Icon name="arrow" size={18} /></a>
+          <a class="button button-outline" href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Hello KS Legal Consultants, I need advice on ${s.title.toLowerCase()}.`)}`} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" size={18} /> <span>WhatsApp Us</span></a>
+        </div>
+      </div>
+      <div class="svc-image" data-reveal="right">
+        <Image
+          src={serviceImages[s.image]}
+          alt=""
+          widths={[480, 760, 1000]}
+          sizes="(max-width: 960px) 92vw, 520px"
+          format="webp"
+          loading="eager"
+          style={`object-position:${serviceImagePosition[s.image]}`}
+        />
+        <span class="svc-image-badge"><Icon name={s.icon} size={28} /></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section practice-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="kicker"><span></span>What We Handle</p>
+          <h2>{s.title}: areas of assistance</h2>
+        </div>
+      </div>
+      <div class="offering-grid">
+        {s.offerings.map((o, i) => (
+          <div class="offering-card" data-reveal data-touch style={`--d:${(i % 3) * 90}ms`}>
+            <span class="offering-num">0{i + 1}</span>
+            <h3>{o.title}</h3>
+            <p>{o.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container svc-split">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>Our Approach</p>
+        <h2>How we work on your matter</h2>
+        <ol class="process-steps compact-steps">
+          {process.map((step, i) => (
+            <li class="process-step is-active">
+              <span class="step-marker"><Icon name={step.icon} size={22} /></span>
+              <div class="step-card" data-touch>
+                <span class="step-number">Step 0{i + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <aside class="svc-aside" data-reveal="right">
+        <div class="doc-card">
+          <h3><Icon name="clipboard" size={22} /> Documents to keep ready</h3>
+          <ul>
+            {s.documents.map((d) => <li><Icon name="check" size={16} /> {d}</li>)}
+          </ul>
+          <p class="small">Please call before sharing sensitive documents electronically.</p>
+        </div>
+        <nav class="related-card" aria-label={`More in ${groupLabel}`}>
+          <h3>More in {groupLabel}</h3>
+          {siblings.map((o) => (
+            <a href={`/${o.group}/${o.slug}/`}><Icon name={o.icon} size={18} /> <span>{o.title}</span> <Icon name="chevron-right" size={16} /></a>
+          ))}
+        </nav>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section practice-section">
+    <div class="container faq-grid">
+      <div>
+        <p class="kicker"><span></span>FAQs</p>
+        <h2>{s.title}: common questions</h2>
+        <div class="faq-list">
+          {s.faqs.map(([q, a], i) => (
+            <details class="faq-item" open={i === 0}>
+              <summary>
+                <span>{q}</span>
+                <span class="faq-icon"><Icon name="plus" size={18} /></span>
+              </summary>
+              <div class="faq-answer"><p>{a}</p></div>
+            </details>
+          ))}
+        </div>
+        <p class="small svc-note">General information only; not legal advice. Every matter depends on its own facts and the law in force.</p>
+      </div>
+      <div class="sticky-form">
+        <ContactForm consultation selected={s.title} />
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

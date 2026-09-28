@@ -1,0 +1,106 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Founder from "../components/Founder.astro";
+import CTA from "../components/CTA.astro";
+import { values } from "../data/site";
+import Icon from "../components/Icon.astro";
+import { Image } from "astro:assets";
+import consultation from "../assets/gen/consultation.webp";
+---
+
+<Layout
+  title="About Our Firm"
+  description="Meet KS Legal Consultants, Hyderabad: a practice grounded in integrity, practical legal advice and a personal commitment to clients."
+>
+  <PageHero
+    eyebrow="About the firm"
+    title="Rooted in integrity. Committed to your cause."
+    description="Legal matters can be complex. Your relationship with your advocate should be clear, considered and built on trust."
+  />
+  <section class="section">
+    <div class="container split-content">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>KS Legal Consultants</p>
+        <h2>A practice built around people.</h2>
+        <Image src={consultation} alt="A client consultation at KS Legal Consultants" widths={[480, 760]} sizes="(max-width: 960px) 92vw, 480px" format="webp" loading="lazy" />
+      </div>
+      <div>
+        <p>
+          KS Legal Consultants is a Hyderabad-based legal practice led by
+          Advocate Siri Swathi Katragadda. We assist individuals, families and
+          businesses across civil, criminal, family, property and corporate
+          matters.
+        </p>
+        <p>
+          Our mission is to make legal guidance clearer and more approachable.
+          We listen before we advise, explain the available options and bring
+          careful preparation to each matter.
+        </p>
+        <h3>Clarity at every stage</h3>
+        <p>
+          We believe a client should understand what comes next. Our approach
+          emphasises communication, careful document review and a clearly
+          discussed scope of work.
+        </p>
+        <h3>A wider perspective</h3>
+        <p>
+          The founder’s background in governance, development and policy informs
+          a practice attentive to both legal detail and its human impact.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="section why-section">
+    <div class="container">
+      <div class="section-head section-head-light" data-reveal>
+        <div>
+          <p class="kicker kicker-light"><span></span>Our Core Values</p>
+          <h2>The principles behind our practice</h2>
+        </div>
+      </div>
+      <div class="values-grid">
+        {values.map(([icon, title, description], i) => (
+          <div class="value-card" data-reveal="zoom" data-touch style={`--d:${i * 100}ms`}>
+            <span class="icon-badge"><Icon name={icon} size={32} /></span>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Founder />
+  <section class="section">
+    <div class="container split-content">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>Purpose Beyond Practice</p>
+        <h2>Law. Governance. Community.</h2>
+      </div>
+      <div class="timeline" data-reveal>
+        <div>
+          <h3>Litigation & advisory</h3>
+          <p>
+            Experience across civil, criminal, family and corporate matters,
+            with 200+ matters handled.
+          </p>
+        </div>
+        <div>
+          <h3>Governance & development</h3>
+          <p>
+            Policy, research and capacity-building experience that brings a
+            broader perspective to legal work.
+          </p>
+        </div>
+        <div>
+          <h3>Access to justice</h3>
+          <p>
+            A commitment to legal awareness and support for women and senior
+            citizens.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>

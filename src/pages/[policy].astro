@@ -1,0 +1,117 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+const policies = {
+  "privacy-policy": {
+    title: "Privacy Policy",
+    description: "How enquiries and website information are handled.",
+    sections: [
+      [
+        "Information you choose to share",
+        "If you contact KS Legal Consultants, you may provide your name, contact details and a brief description of your matter. Please avoid sending confidential documents or sensitive details before discussing a suitable way to share them.",
+      ],
+      [
+        "Enquiry handling",
+        "Information you provide is used to review and respond to your enquiry, arrange conversations and discuss a possible engagement. Sending an enquiry does not establish an advocate–client relationship.",
+      ],
+      [
+        "Email preparation",
+        "In the current website configuration, the enquiry form prepares a message on your device, either as an email draft or as a WhatsApp message. Form entries are not sent to the firm until you choose to send the message in your email or WhatsApp application. That provider processes the message under its own terms.",
+      ],
+      [
+        "Website services",
+        "The website uses locally hosted fonts and does not include analytics or advertising trackers. Hosting providers may process technical request information. The embedded Google Map on the home and contact pages is provided by Google and may set its own cookies. External links, including Google Maps and WhatsApp, open services with their own privacy practices.",
+      ],
+      [
+        "Your questions and requests",
+        "Contact legal@kslegalconsultants.com to ask about information you have shared or to request an update or deletion. The firm may need to retain information where required for an engagement or an applicable obligation.",
+      ],
+      [
+        "Updates",
+        "This notice should be read alongside the terms of any professional engagement. It will need to be updated if enquiry delivery, analytics or other data-processing services change.",
+      ],
+    ],
+  },
+  terms: {
+    title: "Website Terms",
+    description: "The terms for using this informational website.",
+    sections: [
+      [
+        "Purpose of the website",
+        "This website introduces KS Legal Consultants and provides general information about the practice and legal-awareness topics. It is not a substitute for advice on your particular circumstances.",
+      ],
+      [
+        "No professional engagement through browsing",
+        "Using this website, preparing an enquiry or requesting a consultation does not by itself create an advocate–client relationship. Any engagement, scope of work and fees must be agreed separately.",
+      ],
+      [
+        "Accuracy and availability",
+        "Content may require updating as circumstances and law change. Please contact the firm to confirm information relevant to your enquiry. Website availability and external services may be affected by technical interruptions.",
+      ],
+      [
+        "Respectful use",
+        "Do not use enquiry channels to send unlawful, abusive or misleading content. Do not attempt to interfere with the website or submit another person’s confidential information without appropriate authority.",
+      ],
+      [
+        "Materials and external links",
+        "Website materials and supplied images are presented for information about the firm. Contact the firm before reproducing them. Links to third-party services are provided for convenience and are governed by those services’ terms.",
+      ],
+      [
+        "Contact",
+        "Questions about this website may be sent to legal@kslegalconsultants.com.",
+      ],
+    ],
+  },
+  disclaimer: {
+    title: "Disclaimer",
+    description: "Important information about the scope of this website.",
+    sections: [
+      [
+        "General information only",
+        "The content on this website is for general information and legal awareness. It is not legal advice, a legal opinion or a recommendation to take a particular action.",
+      ],
+      [
+        "Individual advice",
+        "Legal advice depends on the facts, documents, applicable law and relevant jurisdiction. Please obtain advice suited to your circumstances before making a legal decision.",
+      ],
+      [
+        "No guarantee of outcomes",
+        "Descriptions of professional matters and past results do not guarantee or predict outcomes in any other matter. Each matter depends on its own facts and circumstances.",
+      ],
+      [
+        "Professional profiles",
+        "Biographical information and editorial features are based on materials supplied for this website. Dated features reflect the information recorded at the time of publication.",
+      ],
+      [
+        "Enquiries and confidentiality",
+        "Do not assume that a website enquiry creates an engagement or a protected channel for confidential information. Contact the firm to agree on the appropriate next steps before sharing sensitive documents.",
+      ],
+    ],
+  },
+};
+export function getStaticPaths() {
+  return ["privacy-policy", "terms", "disclaimer"].map((policy) => ({
+    params: { policy },
+  }));
+}
+const p = policies[Astro.params.policy as keyof typeof policies];
+---
+
+<Layout title={p.title} description={p.description}>
+  <PageHero
+    eyebrow="Website information"
+    title={p.title}
+    description={p.description}
+  />
+  <section class="section">
+    <div class="container editorial">
+      <p class="small">Last updated: 29 September 2026</p>
+      {p.sections.map(([title, body]) => (
+        <section>
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </section>
+      ))}
+    </div>
+  </section>
+</Layout>

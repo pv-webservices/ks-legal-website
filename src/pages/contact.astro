@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import ContactDetails from "../components/ContactDetails.astro";
+import ContactForm from "../components/ContactForm.astro";
+import MapEmbed from "../components/MapEmbed.astro";
+import FAQ from "../components/FAQ.astro";
+---
+
+<Layout
+  title="Contact Us — Hyderabad Office"
+  description="Contact KS Legal Consultants at BMR Heights, Hydernagar, KPHB, Hyderabad. Call 8008286868 or 7660000787, WhatsApp or email to discuss your legal matter."
+>
+  <PageHero
+    eyebrow="Contact Us"
+    title="Let’s find your way forward."
+    description="A clear conversation is a good place to start. Call, WhatsApp, email or visit our Hyderabad office to discuss your matter."
+  />
+  <section class="section">
+    <div class="container contact-grid">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>Get In Touch</p>
+        <h2>We’re here to listen.</h2>
+        <p>Consultations are by appointment. Please call ahead so the right team member is available for you.</p>
+        <ContactDetails />
+      </div>
+      <div data-reveal="right">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+  <section class="section practice-section">
+    <div class="container faq-grid">
+      <div class="faq-intro">
+        <p class="kicker"><span></span>Find Us</p>
+        <h2>Our Hyderabad office</h2>
+        <MapEmbed />
+      </div>
+      <div>
+        <p class="kicker"><span></span>FAQs</p>
+        <h2>Before you contact us</h2>
+        <FAQ />
+      </div>
+    </div>
+  </section>
+</Layout>

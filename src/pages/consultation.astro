@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import ContactDetails from "../components/ContactDetails.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
+import { process } from "../data/site";
+---
+
+<Layout
+  title="Book a Consultation"
+  description="Request a consultation with Advocate Siri Swathi Katragadda at KS Legal Consultants, Hyderabad. Share your preferred contact method and a brief overview of your legal matter."
+>
+  <PageHero
+    eyebrow="Book a Consultation"
+    title="Clear advice starts with a conversation."
+    description="Tell us a little about your matter. We’ll discuss how we can help and arrange a suitable time — in person or online."
+  />
+  <section class="section">
+    <div class="container contact-grid">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>What To Expect</p>
+        <h2>Your first step, made simpler.</h2>
+        <ol class="process-steps compact-steps">
+          {process.map((step, i) => (
+            <li class="process-step is-active">
+              <span class="step-marker"><Icon name={step.icon} size={22} /></span>
+              <div class="step-card" data-touch>
+                <span class="step-number">Step 0{i + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <ContactDetails />
+      </div>
+      <div class="sticky-form" data-reveal="right">
+        <ContactForm consultation />
+      </div>
+    </div>
+  </section>
+</Layout>

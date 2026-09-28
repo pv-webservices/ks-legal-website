@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import Icon from "../components/Icon.astro";
+import { Image } from "astro:assets";
+import founder from "../assets/founder.jpeg";
+import editorial1 from "../assets/editorial-1.jpeg";
+import editorial2 from "../assets/editorial-2.jpeg";
+---
+
+<Layout
+  title="Siri Swathi Katragadda — Advocate & Founder"
+  description="The professional profile of Siri Swathi Katragadda, founder of KS Legal Consultants, with experience spanning litigation, governance and community legal support."
+>
+  <PageHero
+    eyebrow="Our founder"
+    title="Siri Swathi Katragadda"
+    description="Advocate & Founder, KS Legal Consultants"
+  />
+  <section class="section">
+    <div class="container split-content">
+      <div data-reveal="left">
+        <Image
+          src={founder}
+          alt="Advocate Siri Swathi Katragadda at her office"
+          widths={[640, 960]}
+          sizes="(max-width: 960px) 92vw, 540px"
+          format="webp"
+        />
+      </div>
+      <div data-reveal>
+        <p class="kicker"><span></span>Advocacy With Purpose</p>
+        <h2>Legal insight. A human perspective.</h2>
+        <div class="stat-row">
+          <div><strong><span data-count="13">13</span>+</strong><span>Years of experience</span></div>
+          <div><strong><span data-count="200">200</span>+</strong><span>Cases handled</span></div>
+          <div><strong><span data-count="2000">2000</span>+</strong><span>Participants trained on child protection</span></div>
+        </div>
+        <p>
+          Siri Swathi Katragadda brings together legal practice and development
+          experience. Her work spans litigation, advisory matters and a
+          commitment to making legal support accessible.
+        </p>
+        <p>
+          She has over 13 years of experience in litigation, governance and
+          sustainable development, and has handled 200+ matters across civil,
+          corporate, criminal and family law. She has appeared before the
+          Supreme Court and several High Courts.
+        </p>
+        <h3>Professional philosophy</h3>
+        <p>
+          Careful listening and practical guidance are central to her approach.
+          Every matter is considered in light of its facts, its legal context
+          and the people it affects.
+        </p>
+        <a class="button" href="/consultation/"><span>Discuss Your Legal Matter</span> <Icon name="arrow" size={18} /></a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container editorial" data-reveal>
+      <h2>A foundation across disciplines</h2>
+      <p>
+        She holds master’s degrees in Sociology and Business Administration and
+        a degree in Law, and is pursuing a Ph.D. in Sociology.
+      </p>
+      <h2>Governance, policy & research</h2>
+      <p>
+        As Knowledge Manager at the Centre for Good Governance, she led projects
+        with UNICEF, SCCL and the Government of India on child budgeting, coal
+        mining evaluation and district reforms, and trained over 2,000
+        participants on child protection laws. She has presented research
+        nationally and internationally on governance, water conservation and
+        health policy.
+      </p>
+      <h2>Community & legal aid</h2>
+      <p>
+        Her work includes legal support for underprivileged women and senior
+        citizens, with attention to domestic violence, family concerns and
+        property-related matters.
+      </p>
+      <h2>Recognition & editorial feature</h2>
+      <p>
+        She is a recipient of the Young Researcher Award (InSc). Her legal and
+        development work was featured in Femhonour magazine (September 2025) as
+        “Super Woman – Most Inspiring Advocate”.
+      </p>
+    </div>
+    <div class="container media-grid">
+      <a
+        href={editorial1.src}
+        aria-label="View Femhonour feature, page 18"
+      >
+        <Image
+          src={editorial1}
+          alt="Femhonour September 2025, page 18: profile of Siri Swathi Katragadda"
+          width={650}
+          format="webp"
+          loading="lazy"
+        />
+      </a>
+      <a
+        href={editorial2.src}
+        aria-label="View Femhonour feature, page 19"
+      >
+        <Image
+          src={editorial2}
+          alt="Femhonour September 2025, page 19: awards and interview"
+          width={650}
+          format="webp"
+          loading="lazy"
+        />
+      </a>
+    </div>
+  </section>
+  <CTA />
+</Layout>

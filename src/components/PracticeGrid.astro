@@ -1,0 +1,15 @@
+---
+import { practices } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<div class="practice-grid">
+  {practices.map((p, i) => (
+    <a class="practice-card" href={`/practice-areas/${p.slug}/`} data-reveal data-touch style={`--d:${(i % 4) * 80}ms`}>
+      <span class="icon-badge"><Icon name={p.icon} size={30} /></span>
+      <h3>{p.title}</h3>
+      <p>{p.short}</p>
+      <span class="card-link">Learn more <Icon name="arrow" size={16} /></span>
+    </a>
+  ))}
+</div>

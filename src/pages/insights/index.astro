@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Insights from "../../components/Insights.astro";
+import CTA from "../../components/CTA.astro";
+---
+
+<Layout
+  title="Insights & Legal Awareness"
+  description="Read introductory legal-awareness guides on property due diligence, finding legal support and preparing for dispute resolution."
+>
+  <PageHero
+    eyebrow="Insights"
+    title="Knowledge brings perspective."
+    description="Thoughtful starting points for understanding legal matters and asking the right questions."
+  />
+  <section class="section">
+    <div class="container">
+      <Insights />
+      <p class="small">
+        These resources provide general information only and are not a
+        substitute for advice on your specific circumstances.
+      </p>
+    </div>
+  </section>
+  <CTA />
+</Layout>

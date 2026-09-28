@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import { Image } from "astro:assets";
+import team from "../assets/team.jpeg";
+---
+
+<Layout
+  title="Notable Matters"
+  description="A professional highlight from the KS Legal team at the Andhra Pradesh High Court. Past outcomes do not guarantee future results."
+>
+  <PageHero
+    eyebrow="Notable matters"
+    title="Delivering results. Building trust."
+    description="A glimpse into our professional work, shared with respect for client confidentiality."
+  />
+  <section class="section">
+    <div class="container">
+      <Image
+        class="wide-photo"
+        src={team}
+        alt="KS Legal team at the Andhra Pradesh High Court: We successfully won the case in A.P. High Court"
+        widths={[640, 1240]}
+        sizes="(max-width: 1280px) 92vw, 1240px"
+        format="webp"
+        data-reveal="zoom"
+      />
+      <div class="editorial container" data-reveal>
+        <p class="kicker"><span></span>Professional Highlight</p>
+        <h2>A.P. High Court Matter</h2>
+        <p>
+          Our legal team successfully represented its client before the Andhra
+          Pradesh High Court and secured a favourable outcome — a reflection of
+          careful preparation, legal expertise and a strategic approach.
+        </p>
+        <p>
+          Client identities, case references and confidential facts have not
+          been published here. No broader conclusion about likely outcomes in
+          other matters should be drawn from this highlight.
+        </p>
+        <blockquote>
+          <p>
+            Every matter deserves its own careful preparation, considered
+            strategy and individual attention.
+          </p>
+        </blockquote>
+        <p class="disclaimer-note">
+          Past results do not guarantee similar outcomes in future matters.
+          Legal outcomes depend on the facts, applicable law and the decisions
+          of the relevant court or authority.
+        </p>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>

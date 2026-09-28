@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import PracticeGrid from "../../components/PracticeGrid.astro";
+import CTA from "../../components/CTA.astro";
+---
+
+<Layout
+  title="Our Practice Areas"
+  description="Explore civil, criminal, family, property, consumer and corporate legal services at KS Legal Consultants, Hyderabad."
+>
+  <PageHero
+    eyebrow="Practice Areas"
+    title="Legal services tailored to your needs."
+    description="A broad perspective. A focused approach. Thoughtful counsel for the matters that shape your life and business."
+  />
+  <section class="section">
+    <div class="container">
+      <PracticeGrid />
+    </div>
+  </section>
+  <CTA />
+</Layout>

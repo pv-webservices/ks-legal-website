@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceGrid from "../../components/ServiceGrid.astro";
+import CTA from "../../components/CTA.astro";
+import Icon from "../../components/Icon.astro";
+import { services } from "../../data/services";
+---
+
+<Layout
+  title="Our Legal Services"
+  description="Child custody, legal documentation, property, High Court, RERA, consumer, cyber crime and court marriage services from KS Legal Consultants, Hyderabad."
+>
+  <PageHero
+    eyebrow="Our Services"
+    title="Practical legal services, delivered with care."
+    description="Clear documentation, sound advice and strong representation before courts, commissions and authorities."
+  />
+  <section class="section">
+    <div class="container">
+      <ServiceGrid items={services} />
+      <p class="grid-footnote" data-reveal>
+        Need courtroom representation? <a class="text-link" href="/expertise/">Explore our expertise <Icon name="arrow" size={16} /></a>
+      </p>
+    </div>
+  </section>
+  <CTA />
+</Layout>

@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceGrid from "../../components/ServiceGrid.astro";
+import CTA from "../../components/CTA.astro";
+import Icon from "../../components/Icon.astro";
+import { expertise } from "../../data/expertise";
+---
+
+<Layout
+  title="Our Expertise"
+  description="Divorce, domestic violence, matrimonial, family, bail, cheque bounce, civil and criminal matters handled by KS Legal Consultants, Hyderabad."
+>
+  <PageHero
+    eyebrow="Our Expertise"
+    title="Focused expertise for life’s most important legal matters."
+    description="From family courts to criminal trials, explore the areas where our advocates guide clients every day."
+  />
+  <section class="section">
+    <div class="container">
+      <ServiceGrid items={expertise} />
+      <p class="grid-footnote" data-reveal>
+        Looking for something else? <a class="text-link" href="/services/">Explore our services <Icon name="arrow" size={16} /></a>
+      </p>
+    </div>
+  </section>
+  <CTA />
+</Layout>

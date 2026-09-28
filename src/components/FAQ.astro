@@ -1,0 +1,21 @@
+---
+import { faqs } from "../data/site";
+import Icon from "./Icon.astro";
+interface Props {
+  limit?: number;
+}
+const { limit = faqs.length } = Astro.props;
+const items = faqs.slice(0, limit);
+---
+
+<div class="faq-list">
+  {items.map(([q, a], i) => (
+    <details class="faq-item" data-reveal style={`--d:${i * 60}ms`} open={i === 0}>
+      <summary>
+        <span>{q}</span>
+        <span class="faq-icon"><Icon name="plus" size={18} /></span>
+      </summary>
+      <div class="faq-answer"><p>{a}</p></div>
+    </details>
+  ))}
+</div>

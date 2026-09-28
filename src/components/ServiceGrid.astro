@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import type { LegalService } from "../data/types";
+import { serviceImages, serviceImagePosition } from "../data/serviceImages";
+
+interface Props {
+  items: LegalService[];
+}
+const { items } = Astro.props;
+---
+
+<div class="service-grid">
+  {items.map((s, i) => (
+    <a class="service-card" href={`/${s.group}/${s.slug}/`} data-reveal data-touch style={`--d:${(i % 4) * 80}ms`}>
+      <span class="service-card-media">
+        <span class="service-card-img">
+        <Image
+          src={serviceImages[s.image]}
+          alt=""
+          widths={[400, 600]}
+          sizes="(max-width: 700px) 92vw, 300px"
+          format="webp"
+          loading="lazy"
+          style={`object-position:${serviceImagePosition[s.image]}`}
+        />
+        </span>
+        <span class="icon-badge"><Icon name={s.icon} size={24} /></span>
+      </span>
+      <span class="service-card-body">
+        <strong>{s.title}</strong>
+        <span>{s.summary}</span>
+        <span class="card-link">View details <Icon name="arrow" size={15} /></span>
+      </span>
+    </a>
+  ))}
+</div>

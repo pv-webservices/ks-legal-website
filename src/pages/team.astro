@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import { Image } from "astro:assets";
+import founder from "../assets/founder-portrait.webp";
+import Icon from "../components/Icon.astro";
+import partner from "../assets/partner.jpeg";
+import group from "../assets/team.jpeg";
+import { team } from "../data/site";
+const images = { founder, partner };
+---
+
+<Layout
+  title="Our Legal Team"
+  description="Meet the leadership of KS Legal Consultants: Advocate Siri Swathi Katragadda and partner Mirza Rasool Baig."
+>
+  <PageHero
+    eyebrow="Our legal team"
+    title="Shared purpose. Thoughtful representation."
+    description="A collaborative approach to preparation, advice and advocacy."
+  />
+  <section class="section">
+    <div class="container">
+      <div class="team-grid">
+        {team.map((person, i) => (
+          <article class="team-card" data-reveal data-touch style={`--d:${i * 120}ms`}>
+            <div class="team-photo">
+              <Image
+                src={images[person.image as keyof typeof images]}
+                alt={`${person.name}, ${person.role}`}
+                widths={[480, 720]}
+                sizes="(max-width: 640px) 92vw, 480px"
+                format="webp"
+              />
+            </div>
+            <div class="team-body">
+              <p class="team-role">{person.role}</p>
+              <h2>{person.name}</h2>
+              <p>{person.bio}</p>
+              {person.image === "founder" && (
+                <a class="text-link" href="/founder/">Read founder profile <Icon name="arrow" size={16} /></a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+      <Image
+        class="wide-photo"
+        data-reveal
+        widths={[640, 1240]}
+        sizes="(max-width: 1280px) 92vw, 1240px"
+        src={group}
+        alt="KS Legal team pictured at the Andhra Pradesh High Court"
+        width={1240}
+        format="webp"
+        loading="lazy"
+      />
+      <div class="editorial container" data-reveal>
+        <h2>Working together, with your matter in focus.</h2>
+        <p>
+          Good representation begins before a hearing. We place emphasis on
+          reviewing the record, discussing the relevant issues and preparing a
+          considered approach.
+        </p>
+        <p>
+          Our leadership brings individual attention to client conversations and
+          a collaborative approach to legal work. The scope of an engagement is
+          discussed directly with you.
+        </p>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>

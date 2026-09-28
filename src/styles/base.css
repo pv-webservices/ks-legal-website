@@ -1,0 +1,422 @@
+/* ============ Tokens ============ */
+:root {
+  --ivory: #fbf7ef;
+  --cream: #f5eedf;
+  --sand: #ece0c8;
+  --paper: #fffdf9;
+  --navy: #0b1f33;
+  --navy-2: #071626;
+  --navy-3: #16324f;
+  --gold: #bf8f33;
+  --gold-light: #dcb566;
+  --gold-pale: #f3e5c3;
+  --gold-deep: #8a6117;
+  --ink: #16202d;
+  --text: #414b59;
+  --muted: #667080;
+  --line: rgba(191, 143, 51, 0.3);
+  --line-soft: rgba(11, 31, 51, 0.09);
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --script: "Great Vibes", "Brush Script MT", cursive;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --shadow-sm: 0 4px 14px -6px rgba(11, 31, 51, 0.14);
+  --shadow: 0 18px 40px -18px rgba(11, 31, 51, 0.28);
+  --shadow-gold: 0 22px 44px -20px rgba(138, 97, 23, 0.55);
+  --container: 1240px;
+  --header-h: 88px;
+}
+
+/* ============ Base ============ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+html.drawer-open {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--text);
+  font: 400 1rem/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+[hidden] {
+  display: none !important;
+}
+img,
+svg,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.12;
+  margin: 0 0 0.6em;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+}
+h3 {
+  font-size: 1.35rem;
+}
+p {
+  margin: 0 0 1.1em;
+}
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+address {
+  font-style: normal;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+::selection {
+  background: var(--gold-pale);
+  color: var(--navy);
+}
+main {
+  overflow-x: clip;
+}
+.container {
+  width: min(100% - 32px, var(--container));
+  margin-inline: auto;
+}
+.section {
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+  position: relative;
+}
+.small {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ============ Kicker / headings ============ */
+.kicker,
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 0.9rem;
+  font: 500 1.3rem/1.2 var(--serif);
+  color: var(--gold-deep);
+}
+.kicker span {
+  width: 38px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform-origin: left;
+}
+.revealed .kicker span,
+.kicker span {
+  animation: line-grow 1.1s var(--ease) both;
+}
+.kicker-light {
+  color: var(--gold-light);
+}
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  flex-wrap: wrap;
+}
+.section-head h2 {
+  margin: 0;
+}
+.section-head > p {
+  max-width: 420px;
+  margin: 0;
+}
+.section-head-light h2 {
+  color: #fff;
+}
+.section-head-light > p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ============ Buttons: pointer-origin colour fill + slow hue drift ============ */
+.button {
+  --fill: var(--navy);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0 1.6rem;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  font: 600 0.95rem/1.2 var(--sans);
+  letter-spacing: 0.01em;
+  color: var(--navy);
+  background: linear-gradient(115deg, #c38f2b, #e0b85f, #b37d22, #d8a94c) 0 50% / 300% 100%;
+  animation: hue-drift 9s ease-in-out infinite alternate;
+  box-shadow: var(--shadow-gold);
+  transition:
+    color 0.45s var(--ease),
+    border-color 0.45s var(--ease),
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  width: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--fill);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s var(--ease);
+}
+.button svg {
+  transition: transform 0.35s var(--ease);
+  flex: none;
+}
+.button:is(:hover, :focus-visible) {
+  color: var(--gold-pale);
+  transform: translateY(-2px);
+  box-shadow: 0 26px 40px -20px rgba(11, 31, 51, 0.6);
+}
+.button:is(:hover, :focus-visible)::before {
+  width: 260%;
+}
+.button:is(:hover, :focus-visible) svg:last-child {
+  transform: translateX(4px);
+}
+.button:active {
+  transform: translateY(0) scale(0.98);
+}
+.button[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+.button-outline {
+  --fill: linear-gradient(115deg, #c38f2b, #e0b85f);
+  background: transparent;
+  animation: none;
+  border-color: var(--gold);
+  color: var(--navy);
+  box-shadow: none;
+}
+.button-outline:is(:hover, :focus-visible) {
+  color: var(--navy);
+  border-color: var(--gold-light);
+}
+.button-ghost {
+  --fill: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  animation: none;
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+  box-shadow: none;
+  backdrop-filter: blur(4px);
+}
+.button-ghost:is(:hover, :focus-visible) {
+  color: var(--navy);
+}
+.button-whatsapp {
+  background: linear-gradient(115deg, #1c8f4d, #25b862, #178243, #22a95a) 0 50% / 300% 100%;
+  color: #fff;
+  box-shadow: 0 20px 40px -22px rgba(23, 130, 67, 0.8);
+}
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat;
+  transition:
+    background-size 0.4s var(--ease),
+    color 0.3s;
+  padding-bottom: 2px;
+}
+.text-link svg {
+  transition: transform 0.35s var(--ease);
+}
+.text-link:hover {
+  background-size: 100% 1.5px;
+  color: var(--navy);
+}
+.text-link:hover svg {
+  transform: translateX(4px);
+}
+.round-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--gold);
+  background: transparent;
+  color: var(--navy);
+  transition:
+    background 0.35s,
+    color 0.35s,
+    transform 0.35s var(--ease);
+}
+.round-btn:hover {
+  background: var(--navy);
+  color: var(--gold-light);
+  transform: scale(1.06);
+}
+
+/* ============ Icon badge ============ */
+.icon-badge {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--gold-pale), #fbf1dc);
+  color: var(--gold-deep);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition:
+    background 0.45s var(--ease),
+    color 0.45s var(--ease),
+    transform 0.6s var(--ease);
+}
+
+/* ============ Reveal system (uses individual transform props so hover transforms still compose) ============ */
+.will-reveal {
+  opacity: 0;
+}
+.will-reveal.revealed {
+  animation: reveal-up 0.9s var(--ease) var(--d, 0ms) both;
+}
+.will-reveal[data-reveal="left"].revealed {
+  animation-name: reveal-left;
+}
+.will-reveal[data-reveal="right"].revealed {
+  animation-name: reveal-right;
+}
+.will-reveal[data-reveal="zoom"].revealed {
+  animation-name: reveal-zoom;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    translate: 0 36px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    translate: -48px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    translate: 48px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes reveal-zoom {
+  from {
+    opacity: 0;
+    scale: 0.88;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes hue-drift {
+  to {
+    background-position: 100% 50%;
+  }
+}
+@keyframes line-grow {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes ring {
+  from {
+    opacity: 0.8;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 1.6;
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    translate: 0 30px;
+    scale: 0.96;
+  }
+}
+

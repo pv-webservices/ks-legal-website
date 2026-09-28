@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import library from "../assets/gen/library.webp";
+interface Props {
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  crumbs?: [string, string][];
+}
+const { title, eyebrow = "KS Legal Consultants", description, crumbs = [] } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" aria-hidden="true">
+    <Image src={library} alt="" widths={[800, 1376]} sizes="100vw" format="webp" loading="eager" data-parallax="0.2" />
+  </div>
+  <div class="container page-hero-inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      {crumbs.map(([label, href]) => (
+        <>
+          <span aria-hidden="true">/</span>
+          <a href={href}>{label}</a>
+        </>
+      ))}
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{eyebrow}</span>
+    </nav>
+    <p class="kicker kicker-light"><span></span>{eyebrow}</p>
+    <h1>{title}</h1>
+    {description && <p class="lead">{description}</p>}
+  </div>
+</section>

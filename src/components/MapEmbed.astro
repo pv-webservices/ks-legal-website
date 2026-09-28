@@ -1,0 +1,17 @@
+---
+import { contact } from "../data/site";
+import Icon from "./Icon.astro";
+const query = encodeURIComponent("BMR Heights, Srinivasa Colony, Hydernagar, KPHB, Hyderabad 500090");
+---
+
+<div class="map-card" data-reveal>
+  <iframe
+    title="KS Legal Consultants office location, Hydernagar, Hyderabad"
+    src={`https://maps.google.com/maps?q=${query}&z=15&output=embed`}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+  <a class="map-pill" href={contact.map} target="_blank" rel="noopener noreferrer">
+    <Icon name="pin" size={16} /> Open in Google Maps
+  </a>
+</div>

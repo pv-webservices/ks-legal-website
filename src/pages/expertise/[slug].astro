@@ -1,0 +1,13 @@
+---
+import ServicePage from "../../components/ServicePage.astro";
+import { expertise } from "../../data/expertise";
+import type { LegalService } from "../../data/types";
+
+export function getStaticPaths() {
+  return expertise.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props as { service: LegalService };
+const siblings = expertise.filter((s) => s.slug !== service.slug);
+---
+
+<ServicePage service={service} siblings={siblings} />

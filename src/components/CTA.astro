@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import justice from "../assets/gen/cta-justice.webp";
+import Icon from "./Icon.astro";
+import { whatsapp } from "../data/site";
+---
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="cta-bg" aria-hidden="true">
+    <Image src={justice} alt="" widths={[800, 1584]} sizes="100vw" format="webp" loading="lazy" data-parallax="0.12" />
+  </div>
+  <div class="container cta-inner" data-reveal>
+    <div class="cta-copy">
+      <h2 id="cta-title">Need Legal Advice?</h2>
+      <p>
+        Schedule a consultation with Advocate Siri Swathi Katragadda and get
+        clear, practical and trusted legal guidance.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a class="button" href="/consultation/"><Icon name="calendar" size={18} /> <span>Book a Consultation</span> <Icon name="arrow" size={18} /></a>
+      <a class="button button-ghost" href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" size={18} /> <span>WhatsApp Us</span></a>
+      <small>Consult in person or online</small>
+    </div>
+  </div>
+</section>

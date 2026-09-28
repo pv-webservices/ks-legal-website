@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import portrait from "../assets/founder-portrait.webp";
+import Icon from "./Icon.astro";
+import { highlights } from "../data/site";
+---
+
+<section class="section founder-section" id="about-founder">
+  <div class="container founder-grid">
+    <div class="founder-photo" data-reveal="left">
+      <div class="founder-frame">
+        <Image
+          src={portrait}
+          alt="Advocate Siri Swathi Katragadda"
+          widths={[360, 485]}
+          sizes="(max-width: 700px) 80vw, 360px"
+          format="webp"
+          loading="lazy"
+        />
+      </div>
+      <div class="founder-badge">
+        <strong>13+</strong>
+        <span>Years of<br />dedication</span>
+      </div>
+    </div>
+    <div class="founder-copy" data-reveal>
+      <p class="kicker"><span></span>About the Founder</p>
+      <h2 class="founder-name">Siri Swathi Katragadda</h2>
+      <p class="founder-role">Advocate &amp; Founder, KS Legal Consultants</p>
+      <p>
+        Siri Swathi Katragadda is an accomplished advocate and development
+        professional with over 13 years of experience in litigation, governance
+        and sustainable development. With an academic foundation in Sociology,
+        Business Administration and Law, and a Ph.D. in Sociology in progress,
+        she brings a unique blend of legal expertise, policy insight and social
+        commitment to her practice.
+      </p>
+      <p>
+        She has handled 200+ cases across civil, criminal, corporate and family
+        matters, and is deeply committed to legal aid for underprivileged women
+        and senior citizens. Her work in governance, research and policy with
+        organisations such as UNICEF, SCCL and the Government of India has
+        contributed to meaningful social impact.
+      </p>
+      <p class="signature" aria-label="Signature: Siri Swathi Katragadda">Siri Swathi Katragadda</p>
+      <p class="founder-tags">Advocate <i></i> Researcher <i></i> Policy Professional <i></i> Social Contributor</p>
+      <a class="text-link" href="/founder/">Read full profile <Icon name="arrow" size={18} /></a>
+    </div>
+    <ul class="highlight-list">
+      {highlights.map(([icon, title, text], i) => (
+        <li class="highlight-card" data-reveal="right" data-touch style={`--d:${i * 90}ms`}>
+          <span class="icon-badge"><Icon name={icon} size={26} /></span>
+          <span>
+            <strong>{title}</strong>
+            <small>{text}</small>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
