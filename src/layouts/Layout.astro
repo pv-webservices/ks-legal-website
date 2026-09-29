@@ -1,8 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/logo-transparent.png";
+import logo from "../assets/brand/logo.png";
 import Icon from "../components/Icon.astro";
-import { contact, whatsapp } from "../data/site";
+import { contact, siteName, whatsapp } from "../data/site";
+import { noindexPaths } from "../data/seo";
 import { expertise } from "../data/expertise";
 import { services } from "../data/services";
 import "@fontsource/cormorant-garamond/latin-500.css";
@@ -20,16 +21,29 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  /** Page-specific JSON-LD, emitted alongside the site-wide organisation graph. */
   schema?: Record<string, unknown>;
   noindex?: boolean;
+  ogType?: "website" | "article";
+  publishedTime?: string;
 }
 const {
   title = "Legal Counsel in Hyderabad",
   description = "KS Legal Consultants, led by Advocate Siri Swathi Katragadda. Strategic corporate and arbitration counsel for individuals, families and businesses in Hyderabad.",
   schema,
-  noindex = false,
+  noindex = noindexPaths.includes(Astro.url.pathname),
+  ogType = "website",
+  publishedTime,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+/** Keep titles within ~65 characters so search results do not truncate them. */
+const TITLE_MAX = 65;
+const fullTitle = title.includes(siteName)
+  ? title
+  : [`${title} | ${siteName}`, `${title} | KS Legal`].find((t) => t.length <= TITLE_MAX) ?? title;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const siteUrl = new URL("/", Astro.site).href;
+const ogImage = new URL("/images/og-image.jpg", Astro.site).href;
+const logoUrl = new URL(logo.src, Astro.site).href;
 const nav = [
   ["Home", "/"],
   ["About", "/about/"],
@@ -46,26 +60,53 @@ const active = (path: string) =>
     ? Astro.url.pathname === "/"
     : Astro.url.pathname.startsWith(path);
 const waLink = `https://wa.me/${whatsapp}?text=${encodeURIComponent("Hello KS Legal Consultants, I would like to discuss a legal matter.")}`;
-const business = {
+const siteSchema = {
   "@context": "https://schema.org",
-  "@type": "LegalService",
-  name: "KS Legal Consultants",
-  url: Astro.site?.href,
-  email: contact.email,
-  telephone: "+917660000787",
-  founder: { "@type": "Person", name: "Siri Swathi Katragadda" },
-  address: {
-    "@type": "PostalAddress",
-    streetAddress:
-      "BMR Heights, Plot No. 8, Flat No. 601, Srinivasa Colony, Hydernagar, KPHB",
-    addressLocality: "Hyderabad",
-    addressRegion: "Telangana",
-    postalCode: "500090",
-    addressCountry: "IN",
-  },
-  hasMap: contact.map,
-  areaServed: ["Hyderabad", "Telangana", "Andhra Pradesh"],
+  "@graph": [
+    {
+      "@type": "LegalService",
+      "@id": `${siteUrl}#organization`,
+      name: siteName,
+      url: siteUrl,
+      logo: logoUrl,
+      image: ogImage,
+      description:
+        "Hyderabad law firm led by Advocate Siri Swathi Katragadda, advising on civil, criminal, family, property, consumer and corporate matters.",
+      email: contact.email,
+      telephone: "+917660000787",
+      founder: { "@id": `${siteUrl}founder/#person` },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress:
+          "BMR Heights, Plot No. 8, Flat No. 601, Srinivasa Colony, Hydernagar, KPHB",
+        addressLocality: "Hyderabad",
+        addressRegion: "Telangana",
+        postalCode: "500090",
+        addressCountry: "IN",
+      },
+      hasMap: contact.map,
+      areaServed: ["Hyderabad", "Telangana", "Andhra Pradesh"],
+      knowsLanguage: ["en", "te", "hi"],
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}founder/#person`,
+      name: "Siri Swathi Katragadda",
+      jobTitle: "Advocate & Founder",
+      worksFor: { "@id": `${siteUrl}#organization` },
+      url: `${siteUrl}founder/`,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      name: siteName,
+      url: siteUrl,
+      inLanguage: "en-IN",
+      publisher: { "@id": `${siteUrl}#organization` },
+    },
+  ],
 };
+const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
 ---
 
 <!doctype html>
@@ -76,21 +117,36 @@ const business = {
     <link rel="preload" href={headingFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#0B1F33" />
-    <title>{title} | KS Legal Consultants</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
-    <meta property="og:title" content={`${title} | KS Legal Consultants`} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+        <link rel="canonical" href={canonical} />
+      </>
+    )}
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL("/social.jpg", Astro.site)} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Advocate Siri Swathi Katragadda at her chamber desk, KS Legal Consultants" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(schema || business).replace(/</g, "\\u003c")}
-    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={jsonLd(siteSchema)} />
+    {schema && <script type="application/ld+json" set:html={jsonLd(schema)} />}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

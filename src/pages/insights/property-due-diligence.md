@@ -7,6 +7,10 @@ date: '2026-09-29'
 readingTime: 3 min read
 image: property
 imageAlt: Supplied property-awareness artwork by Katragadda Siri Swathi
+related:
+  - property-lawyer
+  - rera-matters
+  - legal-documentation
 reviewStatus: Firm review required before publication
 ---
 

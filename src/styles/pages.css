@@ -546,6 +546,9 @@ blockquote p {
 .form-status:empty {
   display: none;
 }
+.form-status.is-error {
+  color: #b3261e;
+}
 
 /* ============ Articles ============ */
 .article-hero-image {

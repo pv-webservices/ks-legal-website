@@ -1,5 +1,5 @@
 ---
-import { practices, whatsapp } from "../data/site";
+import { contact, formEndpoint, practices, whatsapp } from "../data/site";
 import { expertise } from "../data/expertise";
 import { services } from "../data/services";
 import Icon from "./Icon.astro";
@@ -18,10 +18,21 @@ const matterGroups: [string, string[]][] = [
       .filter((t) => ![...expertise, ...services].some((e) => e.title === t)),
   ],
 ];
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
+const thankYouUrl = new URL("/thank-you/", Astro.site).href;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const subject = consultation
+  ? "New consultation request — KS Legal website"
+  : "New website enquiry — KS Legal website";
 ---
 
-<form class="inquiry-form" data-endpoint={endpoint} data-whatsapp={whatsapp} novalidate>
+<!-- Posts to FormSubmit. Works without JavaScript; the script below adds inline validation. -->
+<form class="inquiry-form" action={formEndpoint} method="POST" data-whatsapp={whatsapp}>
+  <input type="hidden" name="_subject" value={subject} />
+  <input type="hidden" name="_next" value={thankYouUrl} />
+  <input type="hidden" name="_url" value={pageUrl} />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_blacklist" value="casino, viagra, seo services, backlinks, guest post" />
+  <input type="hidden" name="Form" value={consultation ? "Consultation request" : "Contact enquiry"} />
   <h3>{consultation ? "Request a Consultation" : "Send Us a Message"}</h3>
   <p class="form-intro">
     {consultation
@@ -35,6 +46,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
         name="name"
         autocomplete="name"
         required
+        minlength="2"
         maxlength="100"
         placeholder="Full name"
       />
@@ -68,14 +80,15 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
       <>
         <label>
           Preferred contact method
-          <select name="contactMethod">
+          <select name="contact_method">
             <option>Phone call</option>
             <option>Email</option>
+            <option>WhatsApp</option>
           </select>
         </label>
         <label>
           Practice area
-          <select name="practice">
+          <select name="practice_area">
             <option>Help me choose</option>
             {matterGroups.map(([label, titles]) => (
               <optgroup label={label}>
@@ -88,12 +101,12 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
         </label>
         <label>
           Preferred date
-          <input name="date" type="date" />
+          <input name="preferred_date" type="date" />
           <span class="field-error"></span>
         </label>
         <label class="full">
           Preferred time
-          <select name="time">
+          <select name="preferred_time">
             <option>Any time — please contact me</option>
             <option>Morning</option>
             <option>Afternoon</option>
@@ -107,6 +120,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
         <input
           name="subject"
           required
+          minlength="3"
           maxlength="150"
           placeholder="Subject"
         />
@@ -120,20 +134,22 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
         name="message"
         rows="4"
         required
+        minlength="10"
         maxlength="3000"
         placeholder="Share a brief overview. Please avoid confidential details."
       ></textarea>
       <span class="field-error"></span>
     </label>
   </div>
+  <!-- Spam trap: FormSubmit silently discards submissions where _honey is filled. -->
   <div class="honeypot" aria-hidden="true">
     <label>
       Leave blank
-      <input name="website" tabindex="-1" autocomplete="off" />
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
     </label>
   </div>
   <label class="consent">
-    <input type="checkbox" name="consent" required />
+    <input type="checkbox" name="consent" value="Agreed to be contacted and to the privacy policy" required />
     <span>
       I agree to be contacted about this enquiry and have read the{" "}
       <a href="/privacy-policy/">privacy policy</a>.
@@ -141,164 +157,136 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || "";
     </span>
   </label>
   <div class="form-actions">
-    <button class="button" type="submit" name="via" value="email">
+    <button class="button" type="submit" data-via="email">
       <Icon name="send" size={18} />
-      <span>{endpoint ? (consultation ? "Request Consultation" : "Send Message") : "Send via Email"}</span>
+      <span>{consultation ? "Request Consultation" : "Send Message"}</span>
     </button>
-    <button class="button button-whatsapp" type="submit" name="via" value="whatsapp">
+    <button class="button button-whatsapp" type="submit" data-via="whatsapp">
       <Icon name="whatsapp" size={18} />
       <span>Send via WhatsApp</span>
     </button>
   </div>
   <p class="small">
-    {endpoint
-      ? "A request does not confirm an appointment. We will contact you to discuss availability."
-      : "Your message opens in your email or WhatsApp app for you to review and send. Nothing is submitted automatically."}
+    Your enquiry is delivered securely to {contact.email}. A request does not
+    confirm an appointment; we will contact you to discuss availability.
   </p>
   <p class="form-status" role="status" aria-live="polite"></p>
-  <a
-    class="email-draft text-link"
-    hidden
-    href="mailto:legal@kslegalconsultants.com"
-    rel="noopener noreferrer"
-  >
-    Open your app to send the enquiry ↗
-  </a>
-  <noscript>
-    <p>
-      Please call <a href="tel:+917660000787">+91 7660000787</a> or email{" "}
-      <a href="mailto:legal@kslegalconsultants.com">
-        legal@kslegalconsultants.com
-      </a>{" "}
-      to enquire.
-    </p>
-  </noscript>
 </form>
 <script>
-  document
-    .querySelectorAll<HTMLFormElement>(".inquiry-form")
-    .forEach((form) => {
-      const fields = [
-        ...form.querySelectorAll<
-          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >('input:not([name="website"]),textarea,select'),
-      ];
-      const date = form.querySelector<HTMLInputElement>('[type="date"]');
-      if (date) {
-        const now = new Date();
-        date.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-      }
-      fields.forEach((field, index) => {
-        const error = field
-          .closest("label")
-          ?.querySelector<HTMLElement>(".field-error");
-        if (error) {
-          error.id = `error-${index}`;
-          field.setAttribute("aria-describedby", error.id);
-        }
+  /** Submissions faster than this are almost always bots. */
+  const MIN_FILL_MS = 3000;
+  const loadedAt = Date.now();
+
+  type Field = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+  const messageFor = (field: Field): string => {
+    const v = field.validity;
+    if (v.valueMissing || (field.required && field.type !== "checkbox" && !field.value.trim()))
+      return field.type === "checkbox" ? "Please tick this box to continue." : "Please complete this field.";
+    if (v.typeMismatch) return "Please enter a valid email address.";
+    if (v.rangeUnderflow) return "Please choose today or a future date.";
+    // validity.tooShort only fires after user edits (not autofill), so check length directly.
+    const min = Number(field.getAttribute("minlength") || 0);
+    if (min && field.value.trim().length < min) return `Please enter at least ${min} characters.`;
+    if (field.name === "phone") {
+      const digits = field.value.replace(/\D/g, "");
+      if (v.patternMismatch || digits.length < 10 || digits.length > 15)
+        return "Please enter a valid phone number with 10–15 digits.";
+    }
+    return v.valid ? "" : "Please check this field.";
+  };
+
+  document.querySelectorAll<HTMLFormElement>(".inquiry-form").forEach((form, formIndex) => {
+    // Script is running, so take over validation from the browser's native popups.
+    form.noValidate = true;
+    const fields = [
+      ...form.querySelectorAll<Field>('input:not([type="hidden"]):not([name="_honey"]),textarea,select'),
+    ];
+    const status = form.querySelector<HTMLElement>(".form-status")!;
+    const buttons = [...form.querySelectorAll<HTMLButtonElement>('button[type="submit"]')];
+
+    const date = form.querySelector<HTMLInputElement>('[type="date"]');
+    if (date) {
+      const now = new Date();
+      date.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    }
+    fields.forEach((field, index) => {
+      const error = field.closest("label")?.querySelector<HTMLElement>(".field-error");
+      if (!error) return;
+      error.id = `form-${formIndex}-error-${index}`;
+      field.setAttribute("aria-describedby", error.id);
+    });
+
+    const validate = (field: Field): boolean => {
+      const message = messageFor(field);
+      field.setAttribute("aria-invalid", String(Boolean(message)));
+      const error = field.closest("label")?.querySelector(".field-error");
+      if (error) error.textContent = message;
+      return !message;
+    };
+    fields.forEach((field) => {
+      field.addEventListener("blur", () => field.value && validate(field));
+      field.addEventListener("input", () => {
+        if (field.getAttribute("aria-invalid") === "true") validate(field);
       });
-      const validate = (field: (typeof fields)[number]) => {
-        let message = "";
-        if (!field.checkValidity()) {
-          message = field.validity.valueMissing
-            ? "Please complete this field."
-            : field.validity.typeMismatch
-              ? "Please enter a valid email address."
-              : field.validity.rangeUnderflow
-                ? "Please choose today or a future date."
-                : "Please enter a valid phone number (10–20 characters).";
-        }
-        if (field.name === "phone" && !message) {
-          const digits = field.value.replace(/\D/g, "");
-          if (digits.length < 10 || digits.length > 15)
-            message = "Please enter a phone number with 10–15 digits.";
-        }
-        if (field.required && field.type !== "checkbox" && !field.value.trim())
-          message = "Please complete this field.";
-        field.setAttribute("aria-invalid", String(Boolean(message)));
-        const error = field.closest("label")?.querySelector(".field-error");
-        if (error) error.textContent = message;
-        return !message;
-      };
-      fields.forEach((field) =>
-        field.addEventListener("input", () => {
-          if (field.getAttribute("aria-invalid") === "true") validate(field);
-        }),
-      );
-      form.addEventListener("submit", async (event) => {
+    });
+
+    const setBusy = (busy: boolean) => buttons.forEach((b) => (b.disabled = busy));
+    // Re-enable buttons if the visitor returns with the back button (bfcache).
+    window.addEventListener("pageshow", () => setBusy(false));
+
+    form.addEventListener("submit", (event) => {
+      status.textContent = "";
+      status.classList.remove("is-error");
+      const fail = (message: string) => {
         event.preventDefault();
-        const status = form.querySelector<HTMLElement>(".form-status")!;
-        const draft = form.querySelector<HTMLAnchorElement>(".email-draft")!;
-        draft.hidden = true;
-        status.textContent = "";
-        const invalid = fields.filter((field) => !validate(field));
-        if (invalid.length) {
-          invalid[0].focus();
-          status.textContent = "Please check the highlighted fields.";
-          return;
-        }
-        const data = new FormData(form);
-        if (data.get("website")) return;
-        const via =
-          (event as SubmitEvent).submitter?.getAttribute("value") || "email";
+        status.textContent = message;
+        status.classList.add("is-error");
+      };
+
+      const invalid = fields.filter((field) => !validate(field));
+      if (invalid.length) {
+        invalid[0].focus();
+        return fail("Please check the highlighted fields.");
+      }
+      const honey = form.querySelector<HTMLInputElement>('[name="_honey"]');
+      if (honey?.value) return event.preventDefault();
+
+      const via = (event.submitter as HTMLElement | null)?.dataset.via;
+      if (via === "whatsapp") {
+        event.preventDefault();
         const labels: Record<string, string> = {
           name: "Name",
           email: "Email",
           phone: "Mobile",
           subject: "Subject",
-          contactMethod: "Preferred contact",
-          practice: "Practice area",
-          date: "Preferred date",
-          time: "Preferred time",
+          contact_method: "Preferred contact",
+          practice_area: "Practice area",
+          preferred_date: "Preferred date",
+          preferred_time: "Preferred time",
           message: "Message",
         };
-        const summary = [...data.entries()]
+        const summary = [...new FormData(form).entries()]
           .filter(([key, value]) => key in labels && String(value).trim())
           .map(([key, value]) => `${labels[key]}: ${value}`)
           .join("\n");
-        if (via === "whatsapp") {
-          const url = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(`Hello KS Legal Consultants,\n\n${summary}`)}`;
-          draft.href = url;
-          draft.target = "_blank";
-          draft.textContent = "Open WhatsApp to send your enquiry ↗";
-          draft.hidden = false;
-          status.textContent =
-            "Your WhatsApp message is ready. Review it and press send in WhatsApp. Your enquiry has not been sent yet.";
-          window.open(url, "_blank", "noopener");
-          return;
-        }
-        const endpoint = form.dataset.endpoint;
-        if (!endpoint) {
-          draft.href = `mailto:legal@kslegalconsultants.com?subject=${encodeURIComponent(String(data.get("subject") || "Consultation enquiry"))}&body=${encodeURIComponent(summary)}`;
-          draft.removeAttribute("target");
-          draft.textContent = "Open your email app to send the enquiry ↗";
-          draft.hidden = false;
-          status.textContent =
-            "Your email draft is ready. Use the link below to review and send it. Your enquiry has not been sent.";
-          draft.focus();
-          return;
-        }
-        const button = form.querySelector<HTMLButtonElement>(
-          'button[type="submit"]',
-        )!;
-        button.disabled = true;
-        status.textContent = "Sending your enquiry…";
-        try {
-          const response = await fetch(endpoint, {
-            method: "POST",
-            body: data,
-            headers: { Accept: "application/json" },
-          });
-          if (!response.ok) throw new Error("Delivery failed");
-          status.textContent =
-            "Your enquiry has been received. We will contact you to discuss next steps. An appointment is not yet confirmed.";
-          form.reset();
-        } catch {
-          status.textContent =
-            "We could not send your enquiry. Your details are still here. Please try again or contact us by phone or email.";
-        } finally {
-          button.disabled = false;
-        }
-      });
+        const url = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(`Hello KS Legal Consultants,\n\n${summary}`)}`;
+        window.open(url, "_blank", "noopener");
+        status.textContent =
+          "WhatsApp has opened with your message. Press send in WhatsApp to deliver it.";
+        return;
+      }
+
+      // Only the direct POST needs the bot timer; WhatsApp is sent by the visitor.
+      if (Date.now() - loadedAt < MIN_FILL_MS)
+        return fail("That was quick! Please review your details and press send again.");
+
+      if (!navigator.onLine)
+        return fail("You appear to be offline. Please reconnect and try again, or call +91 7660000787.");
+
+      // Native POST to FormSubmit continues; FormSubmit may show a quick spam check, then returns to /thank-you/.
+      status.textContent = "Sending your enquiry…";
+      window.setTimeout(() => setBusy(true), 0);
     });
+  });
 </script>

@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import { contact } from "../data/site";
+---
+
+<Layout
+  title="Thank You — Enquiry Received"
+  description="Your enquiry has reached KS Legal Consultants. Our team will contact you to discuss your matter and arrange a suitable time."
+  noindex
+>
+  <PageHero
+    eyebrow="Enquiry received"
+    title="Thank you. Your message is with us."
+    description="Our team will review your enquiry and contact you shortly to discuss next steps. An appointment is confirmed only once we speak with you."
+  />
+  <section class="section">
+    <div class="container editorial">
+      <h2>What happens next</h2>
+      <ul>
+        <li>A member of our team will contact you using the details you provided.</li>
+        <li>For urgent matters such as bail or an imminent hearing, please call <a href="tel:+917660000787">+91 7660000787</a>.</li>
+        <li>Please do not send confidential documents until we have agreed how to share them.</li>
+      </ul>
+      <p class="small">
+        Didn’t mean to send it, or need to add something? Email
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+      </p>
+      <div class="not-found-actions">
+        <a class="button" href="/"><span>Return to Home</span> <Icon name="arrow" size={18} /></a>
+        <a class="button button-outline" href="/insights/"><span>Read Legal Insights</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>

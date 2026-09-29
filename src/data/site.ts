@@ -5,6 +5,15 @@ export const contact = {
     "BMR Heights, Plot No. 8, Flat No. 601, Srinivasa Colony, Hydernagar, KPHB, Hyderabad - 500 090, Telangana, India.",
   map: "https://maps.app.goo.gl/ue3PXyF6MceSrHSg7",
 };
+export const siteName = "KS Legal Consultants";
+/**
+ * FormSubmit (https://formsubmit.co) delivers enquiries to the firm's inbox.
+ * The first live submission sends an activation email to this address, which
+ * must be confirmed once. After activation, FormSubmit offers a random alias;
+ * set PUBLIC_FORM_ENDPOINT to https://formsubmit.co/<alias> to hide the email.
+ */
+export const formEndpoint =
+  import.meta.env.PUBLIC_FORM_ENDPOINT || `https://formsubmit.co/${contact.email}`;
 // Supplied brief/editorial claims. Confirm current accuracy before publication.
 export const practices = [
   {

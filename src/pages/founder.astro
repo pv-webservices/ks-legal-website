@@ -3,15 +3,34 @@ import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import CTA from "../components/CTA.astro";
 import Icon from "../components/Icon.astro";
-import { Image } from "astro:assets";
-import founder from "../assets/founder.jpeg";
-import editorial1 from "../assets/founder-supreme-court.jpeg";
-import editorial2 from "../assets/editorial-2.jpeg";
+import { Image, getImage } from "astro:assets";
+import founder from "../assets/people/founder-office.jpeg";
+import editorial1 from "../assets/people/founder-supreme-court.jpeg";
+import editorial2 from "../assets/editorial/femhonour-feature.jpeg";
+// Full-size views are optimised WebP rather than the original camera files.
+const [editorial1Large, editorial2Large] = await Promise.all(
+  [editorial1, editorial2].map((src) => getImage({ src, width: 1200, format: "webp" })),
+);
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    "@id": new URL("/founder/#person", Astro.site).href,
+    name: "Siri Swathi Katragadda",
+    jobTitle: "Advocate & Founder",
+    image: new URL(editorial1Large.src, Astro.site).href,
+    worksFor: { "@id": new URL("/#organization", Astro.site).href },
+    award: "Young Researcher Award (InSc)",
+    knowsAbout: ["Civil litigation", "Criminal law", "Family law", "Property law", "Corporate advisory", "Governance and public policy"],
+  },
+};
 ---
 
 <Layout
   title="Siri Swathi Katragadda — Advocate & Founder"
   description="The professional profile of Siri Swathi Katragadda, founder of KS Legal Consultants, with experience spanning litigation, governance and community legal support."
+  schema={personSchema}
 >
   <PageHero
     eyebrow="Our founder"
@@ -89,7 +108,7 @@ import editorial2 from "../assets/editorial-2.jpeg";
     </div>
     <div class="container media-grid">
       <a
-        href={editorial1.src}
+        href={editorial1Large.src}
         aria-label="View photograph of Siri Swathi Katragadda at the Supreme Court of India"
       >
         <Image
@@ -101,7 +120,7 @@ import editorial2 from "../assets/editorial-2.jpeg";
         />
       </a>
       <a
-        href={editorial2.src}
+        href={editorial2Large.src}
         aria-label="View Femhonour feature, page 19"
       >
         <Image

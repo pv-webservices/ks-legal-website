@@ -5,7 +5,21 @@ import CTA from "../../components/CTA.astro";
 import { practices } from "../../data/site";
 import Icon from "../../components/Icon.astro";
 import { Image } from "astro:assets";
-import consultation from "../../assets/gen/consultation.webp";
+import consultation from "../../assets/illustrations/consultation.webp";
+import { expertise } from "../../data/expertise";
+import { services } from "../../data/services";
+
+/** Detailed expertise/service pages that expand on each broad practice area. */
+const relatedBySlug: Record<string, string[]> = {
+  "civil-litigation": ["civil-lawyer", "cheque-bounce-lawyer", "high-court-matters"],
+  "criminal-law": ["criminal-lawyer", "bail-lawyer", "cyber-crime-lawyer"],
+  "family-matrimonial": ["divorce-lawyer", "matrimonial-lawyer", "child-custody-lawyer", "family-dispute-lawyer"],
+  "property-real-estate": ["property-lawyer", "rera-matters", "legal-documentation"],
+  "consumer-protection": ["consumer-disputes"],
+  "corporate-advisory": ["legal-documentation", "civil-lawyer"],
+  "documentation-agreements": ["legal-documentation", "court-marriage-registration"],
+  "women-senior-citizen-support": ["domestic-violence-lawyer", "family-dispute-lawyer"],
+};
 export function getStaticPaths() {
   return practices.map((practice) => ({
     params: { slug: practice.slug },
@@ -13,9 +27,13 @@ export function getStaticPaths() {
   }));
 }
 const { practice: p } = Astro.props;
+const related = [...expertise, ...services].filter((s) => relatedBySlug[p.slug]?.includes(s.slug));
 ---
 
-<Layout title={`${p.title} in Hyderabad`} description={p.description}>
+<Layout
+  title={`${p.title} Lawyers in Hyderabad`}
+  description={`${p.title} lawyers in Hyderabad for ${p.short.toLowerCase()}. ${p.description}`}
+>
   <PageHero
     eyebrow={p.title}
     crumbs={[["Practice Areas", "/practice-areas/"]]}
@@ -38,6 +56,16 @@ const { practice: p } = Astro.props;
             <li>{m}</li>
           ))}
         </ul>
+        {related.length > 0 && (
+          <>
+            <h2>Detailed guides for {p.title.toLowerCase()}</h2>
+            <ul>
+              {related.map((r) => (
+                <li><a class="text-link" href={`/${r.group}/${r.slug}/`}>{r.heading}</a> — {r.summary}</li>
+              ))}
+            </ul>
+          </>
+        )}
         <h2>Our approach</h2>
         <div class="steps">
           <div>

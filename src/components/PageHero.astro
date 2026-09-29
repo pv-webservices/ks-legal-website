@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import library from "../assets/gen/library.webp";
+import library from "../assets/illustrations/library.webp";
 interface Props {
   title: string;
   eyebrow?: string;
@@ -8,6 +8,17 @@ interface Props {
   crumbs?: [string, string][];
 }
 const { title, eyebrow = "KS Legal Consultants", description, crumbs = [] } = Astro.props;
+const trail: [string, string][] = [["Home", "/"], ...crumbs, [eyebrow, Astro.url.pathname]];
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: trail.map(([name, path], i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name,
+    item: new URL(path, Astro.site).href,
+  })),
+};
 ---
 
 <section class="page-hero">
@@ -30,4 +41,5 @@ const { title, eyebrow = "KS Legal Consultants", description, crumbs = [] } = As
     <h1>{title}</h1>
     {description && <p class="lead">{description}</p>}
   </div>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c")} />
 </section>

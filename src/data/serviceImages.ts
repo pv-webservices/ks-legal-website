@@ -1,13 +1,13 @@
 import type { ImageMetadata } from "astro";
 import type { ServiceImage } from "./types";
-import consultation from "../assets/gen/consultation.webp";
-import library from "../assets/gen/library.webp";
-import justice from "../assets/gen/cta-justice.webp";
-import pillars from "../assets/gen/hero-pillars.webp";
-import insightProperty from "../assets/gen/insight-property.webp";
-import insightWomen from "../assets/gen/insight-women.webp";
-import insightDispute from "../assets/gen/insight-dispute.webp";
-import teamCourt from "../assets/team-hero.webp";
+import consultation from "../assets/illustrations/consultation.webp";
+import library from "../assets/illustrations/library.webp";
+import justice from "../assets/illustrations/cta-justice.webp";
+import pillars from "../assets/illustrations/hero-pillars.webp";
+import insightProperty from "../assets/illustrations/insight-property.webp";
+import insightWomen from "../assets/illustrations/insight-women.webp";
+import insightDispute from "../assets/illustrations/insight-dispute.webp";
+import teamCourt from "../assets/firm/team-court-banner.webp";
 
 export const serviceImages: Record<ServiceImage, ImageMetadata> = {
   consultation,

@@ -89,8 +89,14 @@ report.interactions.disclaimerShown = await page.locator(".bci-dialog").isVisibl
 await page.getByRole("button", { name: "I Agree" }).click();
 report.interactions.disclaimerAccepted = !(await page.locator(".bci-dialog").isVisible());
 await page.evaluate(() => sessionStorage.removeItem("show-bci"));
+// Intercept FormSubmit so no real enquiry is ever delivered during tests.
+let formPost = null;
+await page.route("https://formsubmit.co/**", (route) => {
+  formPost = { url: route.request().url(), body: route.request().postData() };
+  return route.fulfill({ status: 200, contentType: "text/html", body: "intercepted" });
+});
 await page.goto(base + "/consultation/");
-await page.getByRole("button", { name: "Send via Email" }).click();
+await page.getByRole("button", { name: "Request Consultation" }).click();
 report.interactions.emptyForm = await page.evaluate(() => ({
   errors: document.querySelectorAll("[aria-invalid=true]").length,
   focused: document.activeElement.name,
@@ -103,26 +109,25 @@ await page
   .locator("[name=message]")
   .fill("Synthetic enquiry used only for local validation.");
 await page.locator("[name=consent]").check();
-await page.getByRole("button", { name: "Send via Email" }).click();
+await page.getByRole("button", { name: "Request Consultation" }).click();
 report.interactions.invalidFields = await page
   .locator("[aria-invalid=true]")
   .evaluateAll((els) => els.map((el) => el.name));
 await page.locator("[name=email]").fill("website-test@example.com");
 await page.locator("[name=phone]").fill("9000000000");
-await page.getByRole("button", { name: "Send via Email" }).click();
-report.interactions.emailDraft = await page.evaluate(() => ({
-  visible: !document.querySelector(".email-draft").hidden,
-  href: document.querySelector(".email-draft").getAttribute("href"),
-  status: document.querySelector(".form-status").textContent,
-}));
 const popupPromise = context.waitForEvent("page", { timeout: 5000 }).catch(() => null);
 await page.getByRole("button", { name: "Send via WhatsApp" }).click();
 const popup = await popupPromise;
-report.interactions.whatsappDraft = {
-  opened: popup ? popup.url().split("?")[0] : null,
-  href: await page.locator(".email-draft").getAttribute("href"),
-};
+report.interactions.whatsappDraft = { opened: popup ? popup.url().split("?")[0] : null };
 await popup?.close();
+await page.waitForTimeout(3000); // the form rejects submissions made within 3s of page load
+await page.getByRole("button", { name: "Request Consultation" }).click();
+await page.waitForURL("https://formsubmit.co/**", { timeout: 5000 }).catch(() => null);
+report.interactions.formSubmit = {
+  endpoint: formPost?.url ?? null,
+  includesMessage: Boolean(formPost?.body?.includes("Synthetic")),
+};
+await page.goto(base + "/consultation/");
 await page.setViewportSize({ width: 375, height: 812 });
 await page.getByRole("button", { name: "Open menu" }).click();
 await page.waitForTimeout(500);

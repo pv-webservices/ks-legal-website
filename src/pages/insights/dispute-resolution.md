@@ -7,6 +7,10 @@ date: '2026-09-29'
 readingTime: 3 min read
 image: insightDispute
 imageAlt: Two parties signing a settlement agreement at a conference table
+related:
+  - civil-lawyer
+  - cheque-bounce-lawyer
+  - consumer-disputes
 reviewStatus: Firm review required before publication
 ---
 
