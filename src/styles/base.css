@@ -67,6 +67,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
+/* Phone numbers: DM Sans has uniform lining figures; the serif's old-style digits look uneven. */
+html a[href^="tel:"],
+.phone-num {
+  font-family: var(--sans);
+  font-variant-numeric: lining-nums tabular-nums;
+}
 h1,
 h2,
 h3,

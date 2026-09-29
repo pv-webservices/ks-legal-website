@@ -193,7 +193,8 @@
   color: var(--navy);
 }
 .faq-callout a {
-  font: 700 1.3rem var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--gold-deep);
 }
 .faq-list {

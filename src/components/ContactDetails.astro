@@ -20,7 +20,7 @@ import Icon from "./Icon.astro";
         {contact.phones.map((p, i) => (
           <>
             {i > 0 && " & "}
-            <a href={`tel:+91${p}`}>{p}</a>
+            <a href={`tel:+91${p}`}>+91 {p}</a>
           </>
         ))}
       </p>

@@ -26,14 +26,14 @@ Hero (founder only, slow zoom) → practice-area marquee → founder → practic
 - `prefers-reduced-motion` disables autoplay, parallax, marquee and reveals; content is never hidden without JavaScript.
 
 ## Images
-Supplied photography in `src/assets/` (founder, partner, team, editorial pages, newspaper column, logo). Derived crops: `founder-portrait.webp`, `team-hero.webp`, `logo-transparent.png`. Seven generated images in use (Nano Banana 2, 1k, WebP; eight generations in total, as the consultation scene was regenerated so the advocate's face is visible) in `src/assets/gen/`: three insight covers, CTA Lady Justice, hero pillars texture, law library background, consultation scene. Astro re-encodes all images to responsive WebP at build time.
+Supplied photography in `src/assets/` (founder, partner, team, editorial pages, newspaper column, logo). Derived crops: `team-hero.webp`, `logo-transparent.png`. Seven generated images in use (Nano Banana 2, 1k, WebP; eight generations in total, as the consultation scene was regenerated so the advocate's face is visible) in `src/assets/gen/`: three insight covers, CTA Lady Justice, hero pillars texture, law library background, consultation scene. Astro re-encodes all images to responsive WebP at build time.
 
 ## Enquiries
-The form prepares an email draft or a WhatsApp message (wa.me/918008286868); nothing is submitted automatically. Set `PUBLIC_FORM_ENDPOINT` to a trusted form service for direct delivery.
+The form prepares an email draft or a WhatsApp message (wa.me/917660000787); nothing is submitted automatically. Set `PUBLIC_FORM_ENDPOINT` to a trusted form service for direct delivery.
 
 ## Content review before launch
 - Confirm 13+ years / 200+ cases (the editorial pages mention both 100+ and 200+), awards and biography currency.
 - Confirm Mirza Rasool Baig's bio line (drafted generically) and the FAQ answers about courts and legal aid.
-- Confirm 8008286868 is on WhatsApp.
+- Confirm 7660000787 is on WhatsApp.
 - Confirm the canonical domain and reproduction permission for the Femhonour pages and newspaper column.
 - Bar Council of India disclaimer appears on first visit and is remembered in the visitor's browser.

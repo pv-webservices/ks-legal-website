@@ -25,7 +25,7 @@ interface Props {
 }
 const {
   title = "Legal Counsel in Hyderabad",
-  description = "KS Legal Consultants, led by Advocate Siri Swathi Katragadda. Trusted legal counsel for individuals, families and businesses in Hyderabad.",
+  description = "KS Legal Consultants, led by Advocate Siri Swathi Katragadda. Strategic legal and arbitration counsel for individuals, families and businesses in Hyderabad.",
   schema,
   noindex = false,
 } = Astro.props;
@@ -52,7 +52,7 @@ const business = {
   name: "KS Legal Consultants",
   url: Astro.site?.href,
   email: contact.email,
-  telephone: "+918008286868",
+  telephone: "+917660000787",
   founder: { "@type": "Person", name: "Siri Swathi Katragadda" },
   address: {
     "@type": "PostalAddress",
@@ -98,9 +98,7 @@ const business = {
       <div class="container topbar-inner">
         <span class="office"><Icon name="pin" size={15} /> Office: Hyderabad, Telangana</span>
         <div class="topbar-links">
-          <a href="tel:+918008286868"><Icon name="phone" size={14} /> 8008286868</a>
-          <span aria-hidden="true">|</span>
-          <a href="tel:+917660000787"><Icon name="phone" size={14} /> 7660000787</a>
+          <a href="tel:+917660000787"><Icon name="phone" size={14} /> +91 7660000787</a>
           <a class="top-email" href={`mailto:${contact.email}`}><Icon name="mail" size={14} /> {contact.email}</a>
         </div>
       </div>
@@ -182,7 +180,7 @@ const business = {
         </nav>
         <div class="drawer-actions">
           <a class="button" href="/consultation/"><span>Book Consultation</span> <Icon name="arrow" size={18} /></a>
-          <a class="button button-outline" href="tel:+918008286868"><span>Call 8008286868</span> <Icon name="phone" size={18} /></a>
+          <a class="button button-outline" href="tel:+917660000787"><span>Call +91 7660000787</span> <Icon name="phone" size={18} /></a>
         </div>
       </div>
     </div>
@@ -206,7 +204,7 @@ const business = {
           </p>
           <div class="footer-social">
             <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><Icon name="whatsapp" size={18} /></a>
-            <a href="tel:+918008286868" aria-label="Call 8008286868"><Icon name="phone" size={18} /></a>
+            <a href="tel:+917660000787" aria-label="Call +91 7660000787"><Icon name="phone" size={18} /></a>
             <a href={`mailto:${contact.email}`} aria-label="Email the firm"><Icon name="mail" size={18} /></a>
             <a href={contact.map} target="_blank" rel="noopener noreferrer" aria-label="Office location on Google Maps"><Icon name="pin" size={18} /></a>
           </div>
@@ -235,7 +233,7 @@ const business = {
         <div class="footer-contact">
           <h2>Contact Information</h2>
           <p><Icon name="pin" size={18} /> <span>{contact.address}</span></p>
-          <p><Icon name="phone" size={18} /> <span><a href="tel:+918008286868">8008286868</a> &amp; <a href="tel:+917660000787">7660000787</a></span></p>
+          <p><Icon name="phone" size={18} /> <span><a href="tel:+917660000787">+91 7660000787</a></span></p>
           <p><Icon name="mail" size={18} /> <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
           <p><Icon name="clock" size={18} /> <span>Consultations by appointment</span></p>
         </div>
@@ -257,7 +255,7 @@ const business = {
     </footer>
 
     <div class="quick-actions" aria-label="Quick contact">
-      <a class="qa-call" href="tel:+918008286868"><Icon name="phone" size={20} /><span>Call</span></a>
+      <a class="qa-call" href="tel:+917660000787"><Icon name="phone" size={20} /><span>Call</span></a>
       <a class="qa-whatsapp" href={waLink} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" size={20} /><span>WhatsApp</span></a>
       <a class="qa-book" href="/consultation/"><Icon name="calendar" size={20} /><span>Book</span></a>
     </div>

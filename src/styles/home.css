@@ -10,7 +10,7 @@
 }
 .founder-frame {
   overflow: hidden;
-  aspect-ratio: 485 / 874;
+  aspect-ratio: 2 / 3;
   border-radius: var(--radius-lg);
   border: 6px solid var(--paper);
   box-shadow: var(--shadow);

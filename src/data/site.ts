@@ -1,6 +1,6 @@
 export const contact = {
   email: "legal@kslegalconsultants.com",
-  phones: ["8008286868", "7660000787"],
+  phones: ["7660000787"],
   address:
     "BMR Heights, Plot No. 8, Flat No. 601, Srinivasa Colony, Hydernagar, KPHB, Hyderabad - 500 090, Telangana, India.",
   map: "https://maps.app.goo.gl/ue3PXyF6MceSrHSg7",
@@ -200,7 +200,7 @@ export const process = [
 export const faqs = [
   [
     "How do I book a consultation with KS Legal Consultants?",
-    "Call 8008286868 or 7660000787, message us on WhatsApp, or use the consultation form on this website. We will contact you to confirm a suitable date and time.",
+    "Call +91 7660000787, message us on WhatsApp, or use the consultation form on this website. We will contact you to confirm a suitable date and time.",
   ],
   [
     "Which courts and forums do you appear before?",
@@ -274,4 +274,4 @@ export const team = [
     bio: "Partner at KS Legal Consultants, bringing focused preparation and courtroom experience to the firm's litigation practice.",
   },
 ];
-export const whatsapp = "918008286868";
+export const whatsapp = "917660000787";
