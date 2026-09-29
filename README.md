@@ -33,7 +33,7 @@ The build output is `dist/`. Upload the **contents** of `dist/` (including the h
 
 1. Review the redesign against the supplied homepage reference (see `DESIGN.md`).
 2. Confirm `SITE_URL`, biography, 13+ / 200+ claims, partner details, editorial image permissions and legal copy with the firm.
-3. Forms post to FormSubmit (`https://formsubmit.co/legal@kslegalconsultants.com`) and return to `/thank-you/`. After deploying, submit one test enquiry and click **Activate** in the email FormSubmit sends to legal@kslegalconsultants.com; nothing is delivered until then. Spam protection: FormSubmit captcha, `_honey` honeypot, keyword blacklist and a 3-second bot timer. Optionally set `PUBLIC_FORM_ENDPOINT` to the random alias FormSubmit provides to hide the address.
+3. Forms post to FormSubmit (`https://formsubmit.co/legal@kslegalconsultants.com`) and return to `/thank-you/`. After deploying, submit one test enquiry and click **Activate** in the email FormSubmit sends to legal@kslegalconsultants.com; nothing is delivered until then. Submissions are sent in the background (FormSubmit AJAX endpoint), so visitors never leave the site; if delivery fails they see an error with phone/email alternatives. Spam protection: `_honey` honeypot, keyword blacklist and a 3-second bot timer. Optionally set `PUBLIC_FORM_ENDPOINT` to the random alias FormSubmit provides to hide the address.
 4. Confirm the office location link, address, availability and appointment process.
 5. Review `docs/VERIFICATION.md` for actual test evidence and remaining browser/device checks.
 

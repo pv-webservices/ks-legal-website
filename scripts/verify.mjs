@@ -93,7 +93,7 @@ await page.evaluate(() => sessionStorage.removeItem("show-bci"));
 let formPost = null;
 await page.route("https://formsubmit.co/**", (route) => {
   formPost = { url: route.request().url(), body: route.request().postData() };
-  return route.fulfill({ status: 200, contentType: "text/html", body: "intercepted" });
+  return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true" }) });
 });
 await page.goto(base + "/consultation/");
 await page.getByRole("button", { name: "Request Consultation" }).click();
@@ -122,10 +122,11 @@ report.interactions.whatsappDraft = { opened: popup ? popup.url().split("?")[0] 
 await popup?.close();
 await page.waitForTimeout(3000); // the form rejects submissions made within 3s of page load
 await page.getByRole("button", { name: "Request Consultation" }).click();
-await page.waitForURL("https://formsubmit.co/**", { timeout: 5000 }).catch(() => null);
+await page.waitForURL("**/thank-you/", { timeout: 5000 }).catch(() => null);
 report.interactions.formSubmit = {
   endpoint: formPost?.url ?? null,
   includesMessage: Boolean(formPost?.body?.includes("Synthetic")),
+  landedOnThankYou: page.url().endsWith("/thank-you/"),
 };
 await page.goto(base + "/consultation/");
 await page.setViewportSize({ width: 375, height: 812 });
