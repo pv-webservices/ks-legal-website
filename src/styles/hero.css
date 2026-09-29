@@ -67,7 +67,7 @@
   padding-block: clamp(2.5rem, 5vw, 4rem);
 }
 .hero-copy {
-  max-width: 610px;
+  max-width: clamp(610px, 44vw, 800px);
 }
 .hero-copy > * {
   animation: rise 0.95s var(--ease) both;
@@ -101,7 +101,7 @@
   background: var(--gold);
 }
 .hero h1 {
-  font-size: clamp(2.5rem, 5.2vw, 4.4rem);
+  font-size: clamp(2.5rem, 4.3vw, 5.2rem);
   line-height: 1.02;
   font-weight: 700;
   margin-bottom: 1.3rem;
@@ -115,8 +115,8 @@
   color: transparent;
 }
 .hero-lead {
-  font-size: 1.07rem;
-  max-width: 540px;
+  font-size: clamp(1.07rem, 0.9vw, 1.2rem);
+  max-width: clamp(540px, 36vw, 660px);
   color: var(--text);
 }
 .hero-lead strong {
@@ -170,7 +170,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.9rem;
-  max-width: 760px;
+  max-width: clamp(760px, 50vw, 960px);
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 .stat-card {

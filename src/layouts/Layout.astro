@@ -25,7 +25,7 @@ interface Props {
 }
 const {
   title = "Legal Counsel in Hyderabad",
-  description = "KS Legal Consultants, led by Advocate Siri Swathi Katragadda. Strategic legal and arbitration counsel for individuals, families and businesses in Hyderabad.",
+  description = "KS Legal Consultants, led by Advocate Siri Swathi Katragadda. Strategic corporate and arbitration counsel for individuals, families and businesses in Hyderabad.",
   schema,
   noindex = false,
 } = Astro.props;
@@ -95,7 +95,7 @@ const business = {
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="topbar">
-      <div class="container topbar-inner">
+      <div class="container container-wide topbar-inner">
         <span class="office"><Icon name="pin" size={15} /> Office: Hyderabad, Telangana</span>
         <div class="topbar-links">
           <a href="tel:+917660000787"><Icon name="phone" size={14} /> +91 7660000787</a>
@@ -104,7 +104,7 @@ const business = {
       </div>
     </div>
     <header class="site-header">
-      <div class="container header-inner">
+      <div class="container container-wide header-inner">
         <a href="/" class="brand" aria-label="KS Legal Consultants home">
           <Image src={logo} alt="" width={120} height={84} format="webp" loading="eager" />
           <span class="brand-text">
