@@ -9,13 +9,13 @@ The site has **38 indexable URLs**. All of them are in `https://kslegalconsultan
 - [ ] `http://…` and `https://www.kslegalconsultants.com/` redirect (301) to `https://kslegalconsultants.com/`.
 - [ ] `https://kslegalconsultants.com/robots.txt` and `/sitemap-index.xml` open in the browser.
 - [ ] A made-up URL such as `/abc/` shows the custom 404 page.
-- [ ] Send one test enquiry and click **Activate** in the FormSubmit email to legal@kslegalconsultants.com.
+- [ ] Send one test enquiry and confirm it arrives in the legal@kslegalconsultants.com inbox.
 
 ## 2. Add and verify the property
 
 1. Go to https://search.google.com/search-console and click **Add property**.
 2. Choose **Domain** and enter `kslegalconsultants.com`. This covers http/https and www/non-www.
-3. Copy the `google-site-verification=…` TXT record and add it in the domain's DNS (for Hostinger: hPanel → Domains → DNS / Nameservers → add TXT, name `@`).
+3. Copy the `google-site-verification=…` TXT record and add it in the domain's DNS (the domain's DNS is at GoDaddy: My Products → Domain → DNS → Add record → TXT, name `@`).
 4. Wait a few minutes, then click **Verify**. DNS can take up to 24–48 hours.
 
 If DNS access is not available, use a **URL prefix** property (`https://kslegalconsultants.com/`) with the HTML-tag method instead. Ask the developer to add the meta tag to `src/layouts/Layout.astro`.

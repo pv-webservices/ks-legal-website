@@ -13,7 +13,7 @@ npm run preview
 npm run audit:seo   # after build: titles, descriptions, headings, canonicals, sitemap, links
 ```
 
-The build output is `dist/`. Upload the **contents** of `dist/` (including the hidden `.htaccess`) to the web root (`public_html` on Hostinger/cPanel). `.htaccess` forces HTTPS and the non-www domain, serves `404.html` for missing URLs and sets caching/compression. On other hosts, configure the same rules.
+Hosted on **Netlify**, deployed automatically from the GitHub repository. `netlify.toml` sets the build command, publish folder (`dist/`), the enquiry function, and caching/security headers. Netlify serves `404.html` for missing URLs and redirects `www` to the bare domain.
 
 ## Content
 
@@ -24,7 +24,8 @@ The build output is `dist/`. Upload the **contents** of `dist/` (including the h
 - `src/assets/`: site images, optimised to responsive WebP at build time:
   - `brand/` logo · `people/` founder and partner photos · `firm/` team photos
   - `editorial/` press and column images · `illustrations/` backgrounds and article art
-- `public/`: files served as-is (`favicon.svg`, `apple-touch-icon.png`, `images/og-image.jpg` social preview, `.htaccess`).
+- `public/`: files served as-is (`favicon.svg`, `apple-touch-icon.png`, `images/og-image.jpg` social preview).
+- `netlify/functions/contact.mts`: enquiry email sender (`/api/contact`); tests in `tests/` (`npm test`).
 - `source-files/original-images/`: full-resolution master files. Not deployed.
 - `docs/DESIGN.md`: design decisions and content provenance/review notes.
 - `docs/GOOGLE-SEARCH-CONSOLE.md`: indexing checklist and URL list.
@@ -33,7 +34,7 @@ The build output is `dist/`. Upload the **contents** of `dist/` (including the h
 
 1. Review the redesign against the supplied homepage reference (see `DESIGN.md`).
 2. Confirm `SITE_URL`, biography, 13+ / 200+ claims, partner details, editorial image permissions and legal copy with the firm.
-3. Forms post to FormSubmit (`https://formsubmit.co/legal@kslegalconsultants.com`) and return to `/thank-you/`. After deploying, submit one test enquiry and click **Activate** in the email FormSubmit sends to legal@kslegalconsultants.com; nothing is delivered until then. Submissions are sent in the background (FormSubmit AJAX endpoint), so visitors never leave the site; if delivery fails they see an error with phone/email alternatives. Spam protection: `_honey` honeypot, keyword blacklist and a 3-second bot timer. Optionally set `PUBLIC_FORM_ENDPOINT` to the random alias FormSubmit provides to hide the address.
+3. Forms post in the background to `/api/contact` (Netlify Function), which emails legal@kslegalconsultants.com through the firm's own GoDaddy mailbox: the sender shows as "<Visitor name> via KS Legal Website", and Reply goes to the visitor. Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` in Netlify environment variables (see `.env.example`). Spam protection: honeypot field, 3-second bot timer, origin check, per-IP rate limit, server-side validation and a keyword flag.
 4. Confirm the office location link, address, availability and appointment process.
 5. Review `docs/VERIFICATION.md` for actual test evidence and remaining browser/device checks.
 

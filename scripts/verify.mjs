@@ -89,11 +89,11 @@ report.interactions.disclaimerShown = await page.locator(".bci-dialog").isVisibl
 await page.getByRole("button", { name: "I Agree" }).click();
 report.interactions.disclaimerAccepted = !(await page.locator(".bci-dialog").isVisible());
 await page.evaluate(() => sessionStorage.removeItem("show-bci"));
-// Intercept FormSubmit so no real enquiry is ever delivered during tests.
+// Intercept the enquiry endpoint so no real enquiry is ever delivered during tests.
 let formPost = null;
-await page.route("https://formsubmit.co/**", (route) => {
+await page.route("**/api/contact", (route) => {
   formPost = { url: route.request().url(), body: route.request().postData() };
-  return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true" }) });
+  return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) });
 });
 await page.goto(base + "/consultation/");
 await page.getByRole("button", { name: "Request Consultation" }).click();

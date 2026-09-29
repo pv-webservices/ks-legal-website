@@ -2,8 +2,9 @@
 
 - `npm run check`: 0 errors. `npm run build`: 43 pages (38 indexable + 404, thank-you, 3 legal pages set to noindex).
 - `npm run audit:seo`: no issues — unique titles (≤65 chars) and descriptions (70–170 chars), one h1 per page, no skipped heading levels, alt on every image, canonical on every indexable page, valid JSON-LD, sitemap = indexable pages, no broken internal links.
-- `npm run verify` (Chrome): 42 pages, 0 horizontal overflow at 320–1920px, 0 axe WCAG AA violations, 0 broken links, 0 page errors. Form: empty submit flags 5 fields; invalid email/phone rejected; valid submission POSTs to FormSubmit (intercepted in test, nothing sent); WhatsApp opens.
-- Not yet verified: live FormSubmit activation and delivery, `.htaccess` on the production server.
+- `npm run verify` (Chrome): 42 pages, 0 horizontal overflow at 320–1920px, 0 axe WCAG AA violations, 0 broken links, 0 page errors. Form: empty submit flags 5 fields; invalid email/phone rejected; valid submission POSTs to `/api/contact` and lands on `/thank-you/` (intercepted in test, nothing sent); WhatsApp opens.
+- `npm test`: 10 tests for the enquiry function (sender/reply-to, validation, consent, honeypot, bot timer, origin, header injection, rate limit, missing config, SMTP failure, no-JS redirect).
+- Not yet verified: live SMTP delivery on Netlify (needs the SMTP environment variables).
 
 # Verification — 29 September 2026 (redesign + expertise/services pages)
 

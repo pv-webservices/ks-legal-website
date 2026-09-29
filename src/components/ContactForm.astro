@@ -18,21 +18,15 @@ const matterGroups: [string, string[]][] = [
       .filter((t) => ![...expertise, ...services].some((e) => e.title === t)),
   ],
 ];
-const thankYouUrl = new URL("/thank-you/", Astro.site).href;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
-const subject = consultation
-  ? "New consultation request — KS Legal website"
-  : "New website enquiry — KS Legal website";
 ---
 
-<!-- Posts to FormSubmit. Works without JavaScript; the script below adds inline validation. -->
+<!-- Posts to the /api/contact Netlify Function (netlify/functions/contact.mts), which emails
+     the firm. Works without JavaScript; the script below adds validation and background sending. -->
 <form class="inquiry-form" action={formEndpoint} method="POST" data-whatsapp={whatsapp}>
-  <input type="hidden" name="_subject" value={subject} />
-  <input type="hidden" name="_next" value={thankYouUrl} />
-  <input type="hidden" name="_url" value={pageUrl} />
-  <input type="hidden" name="_template" value="table" />
-  <input type="hidden" name="_blacklist" value="casino, viagra, seo services, backlinks, guest post" />
-  <input type="hidden" name="Form" value={consultation ? "Consultation request" : "Contact enquiry"} />
+  <input type="hidden" name="form" value={consultation ? "consultation request" : "website enquiry"} />
+  <input type="hidden" name="page" value={pageUrl} />
+  <input type="hidden" name="_ts" value="" />
   <h3>{consultation ? "Request a Consultation" : "Send Us a Message"}</h3>
   <p class="form-intro">
     {consultation
@@ -141,11 +135,11 @@ const subject = consultation
       <span class="field-error"></span>
     </label>
   </div>
-  <!-- Spam trap: FormSubmit silently discards submissions where _honey is filled. -->
+  <!-- Spam trap: the server silently discards submissions where this hidden field is filled. -->
   <div class="honeypot" aria-hidden="true">
     <label>
       Leave blank
-      <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
     </label>
   </div>
   <label class="consent">
@@ -199,8 +193,10 @@ const subject = consultation
   document.querySelectorAll<HTMLFormElement>(".inquiry-form").forEach((form, formIndex) => {
     // Script is running, so take over validation from the browser's native popups.
     form.noValidate = true;
+    const timestamp = form.querySelector<HTMLInputElement>('[name="_ts"]');
+    if (timestamp) timestamp.value = String(loadedAt);
     const fields = [
-      ...form.querySelectorAll<Field>('input:not([type="hidden"]):not([name="_honey"]),textarea,select'),
+      ...form.querySelectorAll<Field>('input:not([type="hidden"]):not([name="company_website"]),textarea,select'),
     ];
     const status = form.querySelector<HTMLElement>(".form-status")!;
     const buttons = [...form.querySelectorAll<HTMLButtonElement>('button[type="submit"]')];
@@ -249,7 +245,7 @@ const subject = consultation
         invalid[0].focus();
         return fail("Please check the highlighted fields.");
       }
-      const honey = form.querySelector<HTMLInputElement>('[name="_honey"]');
+      const honey = form.querySelector<HTMLInputElement>('[name="company_website"]');
       if (honey?.value) return event.preventDefault();
 
       const via = (event.submitter as HTMLElement | null)?.dataset.via;
@@ -294,8 +290,6 @@ const subject = consultation
   const FALLBACK_HTML =
     'Please try again in a few minutes, call <a href="tel:+917660000787">+91 7660000787</a> or email <a href="mailto:legal@kslegalconsultants.com">legal@kslegalconsultants.com</a>.';
 
-  /** FormSubmit's AJAX endpoint (no redirect, no captcha page): /ajax/<email or alias>. */
-  const ajaxUrl = (action: string) => action.replace("formsubmit.co/", "formsubmit.co/ajax/");
 
   async function sendEnquiry(
     form: HTMLFormElement,
@@ -311,22 +305,23 @@ const subject = consultation
     const controller = new AbortController();
     const timer = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     try {
-      const response = await fetch(ajaxUrl(form.action), {
+      const response = await fetch(form.action, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
         signal: controller.signal,
       });
-      const result = (await response.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
-      if (response.ok && String(result.success) === "true") {
+      const result = (await response.json().catch(() => ({}))) as { ok?: boolean; message?: string };
+      if (response.ok && result.ok) {
         window.location.href = "/thank-you/";
         return;
       }
-      if (/activat/i.test(result.message ?? "")) {
-        showError("Our enquiry form is being activated and could not deliver your message yet.");
-        return;
-      }
-      showError("Sorry, we could not send your enquiry right now. Your details are still in the form.");
+      // 400 = a validation message from the server; anything else is a delivery problem.
+      showError(
+        response.status === 400 && result.message
+          ? result.message
+          : "Sorry, we could not send your enquiry right now. Your details are still in the form.",
+      );
     } catch {
       showError("The message service did not respond. Your details are still in the form.");
     } finally {

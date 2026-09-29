@@ -6,14 +6,8 @@ export const contact = {
   map: "https://maps.app.goo.gl/ue3PXyF6MceSrHSg7",
 };
 export const siteName = "KS Legal Consultants";
-/**
- * FormSubmit (https://formsubmit.co) delivers enquiries to the firm's inbox.
- * The first live submission sends an activation email to this address, which
- * must be confirmed once. After activation, FormSubmit offers a random alias;
- * set PUBLIC_FORM_ENDPOINT to https://formsubmit.co/<alias> to hide the email.
- */
-export const formEndpoint =
-  import.meta.env.PUBLIC_FORM_ENDPOINT || `https://formsubmit.co/${contact.email}`;
+/** Enquiry forms post here; see netlify/functions/contact.mts for delivery settings. */
+export const formEndpoint = "/api/contact";
 // Supplied brief/editorial claims. Confirm current accuracy before publication.
 export const practices = [
   {

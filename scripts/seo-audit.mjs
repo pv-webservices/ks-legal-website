@@ -90,7 +90,7 @@ for (const file of pages) {
 }
 
 for (const [title, list] of titles) if (list.length > 1) issues.push(`duplicate title "${title}": ${list.join(", ")}`);
-for (const [desc, list] of descriptions) if (list.length > 1) issues.push(`duplicate description on: ${list.join(", ")}`);
+for (const list of descriptions.values()) if (list.length > 1) issues.push(`duplicate description on: ${list.join(", ")}`);
 
 console.log(`Pages: ${pages.length} | indexable: ${indexable.length} | sitemap URLs: ${sitemap.length}`);
 console.log(issues.length ? issues.join("\n") : "No SEO issues found.");
