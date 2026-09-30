@@ -3,6 +3,111 @@ import type { LegalService } from "./types";
 // General legal-awareness copy. Review with the firm before publication.
 export const expertise: LegalService[] = [
   {
+    slug: "corporate-advisory-lawyer",
+    group: "expertise",
+    title: "Corporate Issues and Advisory",
+    heading: "Corporate Lawyer in Hyderabad",
+    icon: "building",
+    image: "pillars",
+    summary:
+      "Agreements, governance, compliance and commercial disputes, with practical advice that supports business decisions.",
+    intro: [
+      "Businesses need legal advice that fits the way they operate. Clear contracts, sound governance and timely compliance prevent many disputes before they begin, and a considered strategy helps when one cannot be avoided.",
+      "KS Legal Consultants advises companies, founders, partnerships and professionals on day-to-day corporate issues and on larger commercial decisions, drawing on the firm's experience of advising multi-branch businesses across India.",
+    ],
+    offerings: [
+      { title: "Commercial Agreements", text: "Drafting, vetting and negotiating service, vendor, distribution, franchise and supply agreements." },
+      { title: "Shareholder & Partnership Matters", text: "Shareholders' and partnership agreements, founder arrangements and exit terms." },
+      { title: "Corporate Governance", text: "Board processes, director duties, resolutions and statutory records under the Companies Act, 2013." },
+      { title: "Regulatory Compliance", text: "Compliance reviews and ongoing advisory support for regulated and multi-location businesses." },
+      { title: "Employment & HR Issues", text: "Employment contracts, policies, disciplinary processes and separation matters." },
+      { title: "Commercial Dispute Strategy", text: "Early assessment of contractual disputes, legal notices, negotiation and litigation or arbitration strategy." },
+    ],
+    documents: [
+      "Certificate of incorporation, MOA and AOA, or partnership deed",
+      "The agreements, invoices or correspondence in question",
+      "Board or partner resolutions relevant to the issue",
+      "Any notices received from counterparties or authorities",
+      "A short note on the commercial objective",
+    ],
+    faqs: [
+      ["Do you provide ongoing legal support for businesses?", "Yes. Along with advice on specific matters, we can discuss an ongoing advisory arrangement for contract review, compliance questions and dispute management."],
+      ["Can you review an agreement before we sign it?", "Yes. We review the key terms, risks and obligations, explain them in plain language and suggest changes that protect your position."],
+      ["What should we do when a business partner breaches a contract?", "Preserve the agreement and correspondence and avoid informal admissions. We assess the remedies available, which may include a legal notice, negotiation, arbitration or a civil or commercial suit."],
+      ["Do you advise businesses outside Hyderabad?", "Yes. We advise clients across our operating areas and beyond through in-person meetings and video consultations."],
+    ],
+  },
+  {
+    slug: "international-arbitration-lawyer",
+    group: "expertise",
+    title: "International Arbitration (DIFC, DIAC, SIAC)",
+    heading: "International Arbitration Lawyer in Hyderabad",
+    icon: "globe",
+    image: "library",
+    summary:
+      "Cross-border commercial disputes before DIFC, DIAC and SIAC, and enforcement of foreign awards in India.",
+    intro: [
+      "Cross-border contracts often choose arbitration in Dubai or Singapore. When a dispute arises, the institution's rules, the seat and the governing law shape strategy from the very first notice.",
+      "We advise Indian businesses and individuals on disputes connected with the Dubai International Financial Centre (DIFC), the Dubai International Arbitration Centre (DIAC) and the Singapore International Arbitration Centre (SIAC), and on the Indian court proceedings that often run alongside them.",
+    ],
+    offerings: [
+      { title: "Dispute Assessment", text: "Reviewing the arbitration clause, seat, governing law and institutional rules before any step is taken." },
+      { title: "Notice & Pleadings", text: "Preparing notices of arbitration, statements of claim and defence, and supporting evidence." },
+      { title: "Emergency & Interim Relief", text: "Emergency arbitrator applications under institutional rules and interim relief from Indian courts where available." },
+      { title: "Tribunal Proceedings", text: "Document production, witness statements, hearings and written submissions." },
+      { title: "Enforcement in India", text: "Enforcement of foreign arbitral awards under Part II of the Arbitration and Conciliation Act, 1996." },
+      { title: "Challenges & Resistance", text: "Advice on resisting enforcement and on challenges before the courts of the seat." },
+    ],
+    documents: [
+      "The contract containing the arbitration clause",
+      "Correspondence and notices exchanged with the other side",
+      "Invoices, payment records and performance evidence",
+      "Any interim orders or awards already issued",
+      "Details of the parties' assets in India, for enforcement",
+    ],
+    faqs: [
+      ["Our contract names DIAC or SIAC. Can we still get help in India?", "Yes. We advise on strategy, prepare the case and coordinate the proceedings. Where local counsel at the seat is required, we work alongside them."],
+      ["Can a foreign arbitral award be enforced in India?", "Foreign awards can be enforced in India under Part II of the Arbitration and Conciliation Act, 1996, subject to the grounds on which enforcement may be refused. We assess the award and the assets before filing."],
+      ["Can Indian courts grant interim relief in a foreign-seated arbitration?", "In suitable cases Indian courts can grant interim measures in support of an arbitration seated outside India, unless the parties have agreed otherwise. Timing and forum matter, so seek advice early."],
+      ["How long does an international arbitration take?", "It depends on the rules, the tribunal, the complexity of the dispute and the conduct of the parties. Expedited procedures are available under some institutional rules for smaller or urgent claims."],
+    ],
+  },
+  {
+    slug: "company-law-nclt-nclat-lawyer",
+    group: "expertise",
+    title: "Company Law, NCLT & NCLAT Litigation",
+    heading: "Company Law & NCLT Lawyer in Hyderabad",
+    icon: "briefcase",
+    image: "teamCourt",
+    summary:
+      "Oppression and mismanagement, insolvency and corporate disputes before the NCLT, with appeals before the NCLAT.",
+    intro: [
+      "Disputes within a company, or with its creditors, are heard by specialised tribunals under strict timelines. The National Company Law Tribunal (NCLT) and the National Company Law Appellate Tribunal (NCLAT) decide matters that can affect control, value and the future of a business.",
+      "We represent shareholders, directors, companies, creditors and other stakeholders in company law and insolvency proceedings, from the first petition to appeals.",
+    ],
+    offerings: [
+      { title: "Oppression & Mismanagement", text: "Petitions and defences under Sections 241 and 242 of the Companies Act, 2013." },
+      { title: "Insolvency Proceedings", text: "Applications by financial and operational creditors and corporate debtors under the Insolvency and Bankruptcy Code, 2016." },
+      { title: "Claims & Resolution Process", text: "Filing and contesting claims and representing stakeholders during the resolution process." },
+      { title: "Shareholder & Director Disputes", text: "Disputes on share transfers, rectification of the register, board control and director appointments." },
+      { title: "Compromises & Arrangements", text: "Advice and representation in schemes of compromise, arrangement and amalgamation." },
+      { title: "NCLAT Appeals", text: "Appeals against NCLT orders, prepared with close attention to limitation periods." },
+    ],
+    documents: [
+      "Certificate of incorporation, MOA and AOA",
+      "Shareholding records, share certificates and the register of members",
+      "Board and general meeting minutes and resolutions",
+      "Loan agreements, invoices, demand notices and default records",
+      "Any orders or notices already issued by the NCLT",
+    ],
+    faqs: [
+      ["Which NCLT bench hears matters for Telangana and Andhra Pradesh?", "The bench is determined by the location of the company's registered office. Hyderabad and Amaravati have NCLT benches. We confirm the correct bench at the outset."],
+      ["What is oppression and mismanagement?", "It covers conduct of a company's affairs that is prejudicial to members, the company or the public interest. Eligible members can seek relief from the NCLT, which has wide powers to remedy the situation."],
+      ["Can an operational creditor start insolvency against a company?", "Yes, subject to the requirements of the Code, including a demand notice, the minimum default threshold and the absence of a pre-existing dispute. We assess whether insolvency or another remedy is the better route."],
+      ["How much time is there to appeal an NCLT order?", "The limitation period for appeals to the NCLAT is short and depends on the statute under which the order was passed. Please contact us as soon as you receive the order."],
+    ],
+  },
+  {
     slug: "divorce-lawyer",
     group: "expertise",
     title: "Divorce",

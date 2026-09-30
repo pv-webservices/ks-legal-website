@@ -4,6 +4,7 @@ export const contact = {
   address:
     "BMR Heights, Plot No. 8, Flat No. 601, Srinivasa Colony, Hydernagar, KPHB, Hyderabad - 500 090, Telangana, India.",
   map: "https://maps.app.goo.gl/ue3PXyF6MceSrHSg7",
+  operatingAreas: ["Hyderabad", "Amaravati (Vijayawada)", "Delhi", "Bangalore"],
 };
 export const siteName = "KS Legal Consultants";
 /** Enquiry forms post here; see netlify/functions/contact.mts for delivery settings. */
@@ -168,9 +169,9 @@ export const values = [
 ];
 export const stats = [
   { icon: "cap", value: 13, suffix: "+", label: "Years Experience", note: "In law, governance and development" },
-  { icon: "file", value: 200, suffix: "+", label: "Cases Handled", note: "Civil, criminal, corporate & more" },
+  { icon: "heart", value: 0, suffix: "", label: "Free Legal Aid", note: "For senior citizens & those below the poverty line" },
   { icon: "users", value: 0, suffix: "", label: "Client-Focused", note: "Personalised and practical solutions" },
-  { icon: "landmark", value: 0, suffix: "", label: "High Court Matters", note: "Experienced in A.P. & Telangana High Courts" },
+  { icon: "landmark", value: 0, suffix: "", label: "Supreme Court & High Court Matters", note: "Supreme Court and A.P. & Telangana High Courts" },
 ];
 export const highlights = [
   ["gavel", "Civil, Criminal, Family & Corporate Matters", "Wide-ranging litigation experience"],
@@ -263,18 +264,71 @@ export const articles = [
     time: "3 min read",
   },
 ];
-export const team = [
+export const coreTeam = [
   {
-    name: "Siri Swathi Katragadda",
-    role: "Advocate & Founder",
-    image: "founder",
-    bio: "Over 13 years across litigation, governance and sustainable development, with a commitment to legal aid for women and senior citizens.",
+    name: "Adv. Mirza Rasool Baig",
+    text: "Providing visionary leadership and strategic direction, Adv. Mirza brings extensive legal expertise to steer complex matters and ensure meticulous representation for our clients.",
   },
+  {
+    name: "Adv. Rishi Malhotra",
+    text: "Serving as Senior Counsel of the Supreme Court, Adv. Malhotra brings profound appellate experience, exceptional courtroom advocacy, and authoritative legal insight to high-stakes litigation.",
+  },
+  {
+    name: "Adv. Ansuya",
+    text: "Practicing before the Supreme Court, Adv. Ansuya contributes sharp legal acumen, rigorous research, and dedicated advocacy to complex constitutional and civil matters.",
+  },
+  { name: "Umesh Chandra PVG", text: "" },
+];
+export const team = [
   {
     name: "Mirza Rasool Baig",
     role: "Partner",
-    image: "partner",
-    bio: "Partner at KS Legal Consultants, bringing focused preparation and courtroom experience to the firm's litigation practice.",
+    image: "mirza",
+    credentials: "M.Com., LL.B. (Spl.)",
+    bio: [
+      "Mirza Rasool Baig, Advocate, holds an M.Com., LL.B. (Spl.). He brings over two decades of professional experience, with extensive exposure to both corporate and legal practice. He holds an LL.B. (Spl.) from Gulbarga University, obtained in 2000.",
+      "His practice encompasses Civil, Criminal, Constitutional, Consumer, Family, Cheque Bounce, Land & Property Disputes, and related litigation. He regularly handles legal drafting, research, client counselling, and court proceedings before District Courts, Family Courts, Consumer Forums and High Courts. He has handled corporate agreements, healthcare-related legal matters, consumer disputes, compliance, and legal advisory work for a healthcare network with 50+ branches across India. He combines litigation experience with strong corporate and commercial understanding to provide practical, strategic and client-focused legal solutions.",
+    ],
+  },
+  {
+    name: "Vaddapalli Hemanth Kumar",
+    role: "Partner",
+    image: "hemanth",
+    credentials: "B.A., LL.B., LL.M. (Business & Corporate Laws)",
+    bio: [
+      "Vaddapalli Hemanth Kumar, Advocate, holds a B.A., LL.B. and LL.M. in Business & Corporate Laws. He began his legal practice at the Visakhapatnam District Court in 2020, handling matters relating to Civil, Criminal, Alternative Dispute Resolution, Economic Offences, and Personal Laws.",
+      "Since 2022, he has been practicing before the High Court of Andhra Pradesh and the Telangana High Court, with experience in Civil, Criminal, Company, Service, Revenue, Excise, Social Welfare, Municipal and Panchayat matters. He is committed to providing strategic, practical and effective legal representation, with a focus on professional integrity, thorough preparation and client-oriented legal solutions.",
+    ],
+  },
+  {
+    name: "Durga",
+    role: "Associate Advocate",
+    image: "durga",
+    credentials: "LL.B., MBA (HR & Marketing)",
+    bio: [
+      "Advocate Durga is an Associate Advocate with a strong foundation in legal documentation and court procedures. She holds an LL.B. along with an MBA in HR & Marketing. She has valuable experience with the Judicial Department, District Court, Visakhapatnam.",
+      "Her experience includes handling legal documents, judgments, orders and confidential court records. She brings strong attention to detail, accuracy, communication and organizational skills. She assists the firm in legal research, drafting, case preparation and court-related coordination.",
+    ],
+  },
+  {
+    name: "Kalikar Manjunath",
+    role: "Associate Advocate",
+    image: "manjunath",
+    credentials: "LL.B., Karnataka State Law University",
+    bio: [
+      "Kalikar Manjunath is a dedicated Advocate who completed his LL.B. from Karnataka State Law University. He was enrolled as an Advocate in 2021 and has been actively practicing since then. His practice covers Civil, Criminal, Family, Consumer, and Land Acquisition matters.",
+      "He represents clients with a focus on careful legal analysis, effective advocacy, and practical solutions. He is committed to understanding each client’s concerns and providing professional and client-focused legal assistance. With continuous experience in diverse areas of law, he strives to uphold integrity, diligence, and justice in his legal practice.",
+    ],
+  },
+  {
+    name: "Rampraveen Reddy Guda",
+    role: "Associate Advocate",
+    image: "rampraveen",
+    credentials: "B.Tech., LL.B.",
+    bio: [
+      "Rampraveen Reddy Guda is a dedicated legal professional holding an integrated background in technology and law with a B.Tech and an LL.B. With two years of practical experience, he brings a modern, analytical perspective to the firm.",
+      "Currently working closely with senior counsels, Rampraveen is actively involved in supporting the legal team across various matters, combining technical fluency with foundational legal research and case preparation. Eager to learn and deeply committed to professional growth, he plays a key collaborative role in ensuring efficient handling of day-to-day legal operations and client deliverables.",
+    ],
   },
 ];
 export const whatsapp = "917660000787";

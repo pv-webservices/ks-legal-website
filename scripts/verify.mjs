@@ -160,13 +160,15 @@ report.interactions.skipLink = await page.evaluate(
 await page.emulateMedia({ reducedMotion: "reduce" });
 await page.reload();
 report.interactions.reducedMotion = await page
-  .locator(".founder-section [data-reveal]").first()
+  .locator(".practice-section [data-reveal]").first()
   .evaluate((el) => getComputedStyle(el).opacity);
 await mkdir("output/playwright", { recursive: true });
 await page.setViewportSize({ width: 1440, height: 1000 });
 await page.screenshot({ path: "output/playwright/home-desktop.png" });
+await page.goto(base + "/team/");
 await page.locator(".founder-section").scrollIntoViewIfNeeded();
 await page.screenshot({ path: "output/playwright/founder-section.png" });
+await page.goto(base + "/");
 await page.setViewportSize({ width: 390, height: 844 });
 await page.evaluate(() => scrollTo(0, 0));
 await page.screenshot({ path: "output/playwright/home-mobile.png" });

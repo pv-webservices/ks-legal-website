@@ -1,50 +1,97 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
+import Founder from "../components/Founder.astro";
 import CTA from "../components/CTA.astro";
 import { Image } from "astro:assets";
-import founder from "../assets/people/founder-supreme-court.jpeg";
-import Icon from "../components/Icon.astro";
-import partner from "../assets/people/partner-mirza-rasool-baig.jpeg";
+import coreTeamPhoto from "../assets/firm/core-legal-team.jpeg";
+import mirza from "../assets/people/partner-mirza-rasool-baig.jpeg";
+import hemanth from "../assets/people/partner-hemanth-kumar.jpeg";
+import durga from "../assets/people/associate-durga.jpeg";
+import manjunath from "../assets/people/associate-kalikar-manjunath.jpeg";
+import rampraveen from "../assets/people/associate-rampraveen-reddy-guda.jpeg";
 import group from "../assets/firm/legal-team-high-court.webp";
-import { team } from "../data/site";
-const images = { founder, partner };
+import { coreTeam, team } from "../data/site";
+const images = { mirza, hemanth, durga, manjunath, rampraveen };
 ---
 
 <Layout
   title="Our Legal Team"
-  description="Meet the leadership of KS Legal Consultants: Advocate Siri Swathi Katragadda and partner Mirza Rasool Baig."
+  description="Meet the KS Legal Consultants team: founder Advocate Siri Swathi Katragadda, the core legal team, partners and associate advocates."
 >
   <PageHero
     eyebrow="Our legal team"
     title="Shared purpose. Thoughtful representation."
     description="A collaborative approach to preparation, advice and advocacy."
   />
-  <section class="section">
+
+  <Founder />
+
+  <!-- CORE LEGAL TEAM -->
+  <section class="section core-team-section" aria-labelledby="core-team-title">
+    <div class="container core-team-grid">
+      <div class="core-team-photo" data-reveal="left">
+        <Image
+          src={coreTeamPhoto}
+          alt="Members of the KS Legal core team outside the High Court of Andhra Pradesh"
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 960px) 92vw, 600px"
+          format="webp"
+          loading="lazy"
+        />
+      </div>
+      <div class="core-team-copy" data-reveal>
+        <p class="kicker"><span></span>Senior Expertise</p>
+        <h2 id="core-team-title">Core Legal Team</h2>
+        <p>
+          At K S Legal Team, our practice is driven by a distinguished group of
+          legal minds dedicated to delivering exceptional advocacy and strategic
+          counsel.
+        </p>
+        <ul class="core-team-list">
+          {coreTeam.map((member) => (
+            <li data-touch>
+              <strong>{member.name}</strong>
+              {member.text && <span>{member.text}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS & ASSOCIATES -->
+  <section class="section profiles-section" aria-labelledby="profiles-title">
     <div class="container">
-      <div class="team-grid">
-        {team.map((person, i) => (
-          <article class="team-card" data-reveal data-touch style={`--d:${i * 120}ms`}>
-            <div class="team-photo">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="kicker"><span></span>Partners &amp; Associates</p>
+          <h2 id="profiles-title">Meet Our Advocates</h2>
+        </div>
+      </div>
+      <div class="profile-list">
+        {team.map((person) => (
+          <article class="profile" data-reveal data-touch aria-labelledby={`profile-${person.image}`}>
+            <div class="profile-photo">
               <Image
                 src={images[person.image as keyof typeof images]}
-                alt={`${person.name}, ${person.role}`}
-                widths={[480, 720]}
-                sizes="(max-width: 640px) 92vw, 480px"
+                alt={`Advocate ${person.name}, ${person.role}, KS Legal Consultants`}
+                widths={[320, 480, 720]}
+                sizes="(max-width: 700px) 80vw, 300px"
                 format="webp"
+                loading="lazy"
               />
             </div>
-            <div class="team-body">
+            <div class="profile-body">
               <p class="team-role">{person.role}</p>
-              <h2>{person.name}</h2>
-              <p>{person.bio}</p>
-              {person.image === "founder" && (
-                <a class="text-link" href="/founder/">Read founder profile <Icon name="arrow" size={16} /></a>
-              )}
+              <h3 id={`profile-${person.image}`}>Advocate {person.name}</h3>
+              <p class="profile-credentials">{person.credentials}</p>
+              {person.bio.map((paragraph) => <p>{paragraph}</p>)}
             </div>
           </article>
         ))}
       </div>
+
       <Image
         class="wide-photo"
         data-reveal

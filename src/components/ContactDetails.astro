@@ -13,6 +13,13 @@ import Icon from "./Icon.astro";
     </div>
   </li>
   <li data-touch>
+    <span class="icon-badge"><Icon name="landmark" size={22} /></span>
+    <div>
+      <h3>Operating Areas</h3>
+      <p>{contact.operatingAreas.join(" | ")}</p>
+    </div>
+  </li>
+  <li data-touch>
     <span class="icon-badge"><Icon name="phone" size={22} /></span>
     <div>
       <h3>Mobile Number</h3>

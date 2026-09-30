@@ -85,7 +85,7 @@ const siteSchema = {
         addressCountry: "IN",
       },
       hasMap: contact.map,
-      areaServed: ["Hyderabad", "Telangana", "Andhra Pradesh"],
+      areaServed: [...contact.operatingAreas, "Telangana", "Andhra Pradesh"],
       knowsLanguage: ["en", "te", "hi"],
     },
     {
@@ -152,7 +152,7 @@ const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="topbar">
       <div class="container container-wide topbar-inner">
-        <span class="office"><Icon name="pin" size={15} /> Office: Hyderabad, Telangana</span>
+        <span class="office"><Icon name="pin" size={15} /> Operating Areas: {contact.operatingAreas.join(" | ")}</span>
         <div class="topbar-links">
           <a href="tel:+917660000787"><Icon name="phone" size={14} /> +91 7660000787</a>
           <a class="top-email" href={`mailto:${contact.email}`}><Icon name="mail" size={14} /> {contact.email}</a>
@@ -254,9 +254,9 @@ const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
             </span>
           </a>
           <p>
-            A trusted legal practice in Hyderabad led by Advocate Siri Swathi
-            Katragadda, offering ethical, result-oriented and client-focused
-            legal solutions for individuals, families and businesses.
+            Strategic legal practice with core team and senior expertise
+            offering ethical, and client-focused legal solutions for
+            individuals, families and businesses.
           </p>
           <div class="footer-social">
             <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><Icon name="whatsapp" size={18} /></a>
@@ -289,6 +289,7 @@ const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
         <div class="footer-contact">
           <h2>Contact Information</h2>
           <p><Icon name="pin" size={18} /> <span>{contact.address}</span></p>
+          <p><Icon name="landmark" size={18} /> <span><strong>Operating Areas:</strong> {contact.operatingAreas.join(" | ")}</span></p>
           <p><Icon name="phone" size={18} /> <span><a href="tel:+917660000787">+91 7660000787</a></span></p>
           <p><Icon name="mail" size={18} /> <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
           <p><Icon name="clock" size={18} /> <span>Consultations by appointment</span></p>

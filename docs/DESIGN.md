@@ -4,7 +4,7 @@
 Astro static generation, TypeScript content data, Markdown articles, plain CSS, one small vanilla script (`src/scripts/site.ts`). Normal page navigation; no accounts, no application shell.
 
 ## Routes
-Home; about; founder; practice-areas with eight detail pages; expertise (8 pages: divorce, domestic violence, matrimonial, family disputes, bail, cheque bounce, civil, criminal); services (8 pages: child custody, legal documentation, property, High Court matters, RERA, consumer disputes, cyber crime, court marriage); team; success-stories; insights with three Markdown articles; contact; consultation; privacy-policy; terms; disclaimer; custom 404.
+Home; about; founder; practice-areas with eight detail pages; expertise (11 pages: corporate advisory, international arbitration, company law / NCLT & NCLAT, divorce, domestic violence, matrimonial, family disputes, bail, cheque bounce, civil, criminal); services (8 pages: child custody, legal documentation, property, High Court matters, RERA, consumer disputes, cyber crime, court marriage); team; success-stories; insights with three Markdown articles; contact; consultation; privacy-policy; terms; disclaimer; custom 404.
 
 ## Design contract
 Follows the supplied homepage reference (ivory editorial base, navy contrast bands, antique-gold accents, Cormorant Garamond headings, DM Sans body, Great Vibes signature). Tokens live at the top of `src/styles/base.css`. Gold text on light backgrounds uses `--gold-deep` for WCAG AA contrast.
