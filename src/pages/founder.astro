@@ -7,10 +7,13 @@ import { Image, getImage } from "astro:assets";
 import founder from "../assets/people/founder-office.jpeg";
 import editorial1 from "../assets/people/founder-supreme-court.jpeg";
 import editorial2 from "../assets/editorial/femhonour-feature.jpeg";
+import iba1 from "../assets/events/iba-denmark-1.jpeg";
+import iba2 from "../assets/events/iba-denmark-2.jpeg";
 // Full-size views are optimised WebP rather than the original camera files.
-const [editorial1Large, editorial2Large] = await Promise.all(
-  [editorial1, editorial2].map((src) => getImage({ src, width: 1200, format: "webp" })),
+const [editorial1Large, editorial2Large, iba1Large, iba2Large] = await Promise.all(
+  [editorial1, editorial2, iba1, iba2].map((src) => getImage({ src, width: 1600, format: "webp" })),
 );
+const ibaPdf = "/documents/iba-denmark-event.pdf";
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -127,6 +130,46 @@ const personSchema = {
           src={editorial2}
           alt="Femhonour September 2025, page 19: awards and interview"
           width={650}
+          format="webp"
+          loading="lazy"
+        />
+      </a>
+    </div>
+  </section>
+  <section class="section practice-section" id="iba-copenhagen-2026">
+    <div class="container editorial" data-reveal>
+      <p class="kicker"><span></span>International Engagement</p>
+      <h2>IBA Annual Conference 2026 — Copenhagen, Denmark</h2>
+      <p>
+        In October 2026, Advocate Siri Swathi Katragadda attended the
+        International Bar Association (IBA) Annual Conference in Copenhagen as
+        part of a delegation of advocates from South India. The programme
+        covered international arbitration and dispute resolution, technology
+        and AI in legal practice, and cross-border transactions, along with an
+        Embassy of India session on the India–Denmark Green Strategic
+        Partnership and the India–EU Free Trade Agreement.
+      </p>
+      <a class="button" href={ibaPdf} target="_blank" rel="noopener">
+        <span>View Event Brochure (PDF)</span> <Icon name="file" size={18} />
+      </a>
+    </div>
+    <div class="container media-grid event-grid">
+      <a href={iba1Large.src} aria-label="View IBA Annual Conference 2026 Copenhagen photograph">
+        <Image
+          src={iba1}
+          alt="Advocate Siri Swathi Katragadda at the IBA Annual Conference 2026, Copenhagen, Denmark"
+          widths={[480, 720]}
+          sizes="(max-width: 640px) 92vw, 460px"
+          format="webp"
+          loading="lazy"
+        />
+      </a>
+      <a href={iba2Large.src} aria-label="View IBA Annual Conference 2026 event highlights">
+        <Image
+          src={iba2}
+          alt="Event highlights from the IBA Annual Conference 2026 in Copenhagen, including the Embassy of India programme"
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 640px) 92vw, 720px"
           format="webp"
           loading="lazy"
         />

@@ -3,9 +3,19 @@ export const contact = {
   phones: ["7660000787"],
   address:
     "BMR Heights, Plot No. 8, Flat No. 601, Srinivasa Colony, Hydernagar, KPHB, Hyderabad - 500 090, Telangana, India.",
-  map: "https://maps.app.goo.gl/ue3PXyF6MceSrHSg7",
-  operatingAreas: ["Hyderabad", "Amaravati (Vijayawada)", "Delhi", "Bangalore"],
+  map: "https://maps.app.goo.gl/Vfu3oT2GV4C3KjbK9",
+  /** Pin for Flat 601, BMR Heights (Plot No. 8), Srinivasa Colony, Hydernagar. */
+  geo: { lat: 17.5092867, lng: 78.3909457 },
+  operatingAreas: ["Hyderabad", "Amaravati", "New Delhi", "Bangalore", "Mumbai"],
 };
+/** Separator used wherever the operating cities are listed in a line. */
+export const citySeparator = " – ";
+export const socials = [
+  { name: "Instagram", icon: "instagram", href: "https://www.instagram.com/kslegalsm/" },
+  { name: "YouTube", icon: "youtube", href: "https://www.youtube.com/@KSLegalSM" },
+  { name: "X", icon: "x", href: "https://x.com/kslegalsm" },
+  { name: "LinkedIn", icon: "linkedin", href: "https://www.linkedin.com/in/k-s-legal-consultants-b4b59244a/" },
+];
 export const siteName = "KS Legal Consultants";
 /** Enquiry forms post here; see netlify/functions/contact.mts for delivery settings. */
 export const formEndpoint = "/api/contact";

@@ -704,3 +704,77 @@ blockquote p {
     top: calc(var(--header-h) + 24px);
   }
 }
+
+/* ============ Contact additions: logo, QR, socials ============ */
+.contact-logo {
+  width: min(320px, 100%);
+  height: auto;
+  margin-bottom: 1.5rem;
+  /* The logo file has a white background; let it sit on the ivory page. */
+  mix-blend-mode: multiply;
+}
+.contact-details .contact-address > div {
+  flex: 1;
+  min-width: 0;
+}
+.contact-qr {
+  flex: none;
+  margin: 0;
+  text-align: center;
+}
+.contact-qr img {
+  width: 104px;
+  height: 104px;
+  border-radius: 8px;
+}
+.contact-qr figcaption {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.contact-details .cities {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--navy);
+}
+.contact-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+.contact-details .contact-social a {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--navy);
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+.contact-details .contact-social a:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+.event-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  align-items: start;
+}
+@media (max-width: 640px) {
+  .event-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .contact-details .contact-address {
+    flex-wrap: wrap;
+  }
+  .contact-details .contact-address > div {
+    flex-basis: calc(100% - 48px - 1rem);
+  }
+  .contact-qr {
+    margin-left: calc(48px + 1rem);
+  }
+}
