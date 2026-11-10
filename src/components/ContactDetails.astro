@@ -1,22 +1,28 @@
 ---
-import { contact, whatsapp } from "../data/site";
+import { Image } from "astro:assets";
+import qrCode from "../assets/brand/profile-qrcode.webp";
+import { citySeparator, contact, socials, whatsapp } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
 <ul class="contact-details">
-  <li data-touch>
+  <li data-touch class="contact-address">
     <span class="icon-badge"><Icon name="pin" size={22} /></span>
     <div>
       <h3>Office Address</h3>
       <address>{contact.address}</address>
       <a class="text-link" href={contact.map} target="_blank" rel="noopener noreferrer">Get directions <Icon name="arrow-up-right" size={15} /></a>
     </div>
+    <figure class="contact-qr">
+      <Image src={qrCode} alt="QR code for the KS Legal Consultants profile" width={120} densities={[1, 2]} format="webp" loading="lazy" />
+      <figcaption>Scan to connect</figcaption>
+    </figure>
   </li>
   <li data-touch>
     <span class="icon-badge"><Icon name="landmark" size={22} /></span>
     <div>
       <h3>Operating Areas</h3>
-      <p>{contact.operatingAreas.join(" | ")}</p>
+      <p class="cities">{contact.operatingAreas.join(citySeparator)}</p>
     </div>
   </li>
   <li data-touch>
@@ -45,6 +51,19 @@ import Icon from "./Icon.astro";
     <div>
       <h3>Email</h3>
       <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </div>
+  </li>
+  <li data-touch>
+    <span class="icon-badge"><Icon name="globe" size={22} /></span>
+    <div>
+      <h3>Follow Us</h3>
+      <div class="contact-social">
+        {socials.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener noreferrer me" aria-label={`KS Legal Consultants on ${s.name}`}>
+            <Icon name={s.icon} size={18} />
+          </a>
+        ))}
+      </div>
     </div>
   </li>
 </ul>

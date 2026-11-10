@@ -5,6 +5,8 @@ import ContactDetails from "../components/ContactDetails.astro";
 import ContactForm from "../components/ContactForm.astro";
 import MapEmbed from "../components/MapEmbed.astro";
 import FAQ from "../components/FAQ.astro";
+import { Image } from "astro:assets";
+import logoWide from "../assets/brand/ks-legal-consultants-2.jpg";
 ---
 
 <Layout
@@ -19,6 +21,7 @@ import FAQ from "../components/FAQ.astro";
   <section class="section">
     <div class="container contact-grid">
       <div data-reveal="left">
+        <Image class="contact-logo" src={logoWide} alt="KS Legal Consultants" width={360} densities={[1, 2]} format="webp" loading="lazy" />
         <p class="kicker"><span></span>Get In Touch</p>
         <h2>We’re here to listen.</h2>
         <p>Consultations are by appointment. Please call ahead so the right team member is available for you.</p>
