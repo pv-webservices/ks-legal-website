@@ -706,27 +706,3 @@
     animation: none;
   }
 }
-.founder-news {
-  display: flex;
-  gap: 0.6rem;
-  align-items: flex-start;
-  margin: 1rem 0 1.2rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
-  font-size: 0.9rem;
-  color: var(--ink);
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
-}
-.founder-news svg {
-  flex: none;
-  margin-top: 0.1rem;
-  color: var(--gold-deep);
-}
-.founder-news:hover {
-  border-color: var(--gold);
-  box-shadow: var(--shadow-sm);
-}

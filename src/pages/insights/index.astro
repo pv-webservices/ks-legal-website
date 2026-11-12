@@ -2,12 +2,13 @@
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import Insights from "../../components/Insights.astro";
+import Publications from "../../components/Publications.astro";
 import CTA from "../../components/CTA.astro";
 ---
 
 <Layout
   title="Insights & Legal Awareness"
-  description="Read introductory legal-awareness guides on property due diligence, finding legal support and preparing for dispute resolution."
+  description="Legal-awareness articles plus recognition and publications from KS Legal Consultants, including the IBA Annual Conference 2026 in Copenhagen."
 >
   <PageHero
     eyebrow="Insights"
@@ -27,6 +28,18 @@ import CTA from "../../components/CTA.astro";
         These resources provide general information only and are not a
         substitute for advice on your specific circumstances.
       </p>
+    </div>
+  </section>
+  <section class="section insights-section" id="publications" aria-labelledby="publications-title">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="kicker"><span></span>Recognition &amp; Publications</p>
+          <h2 id="publications-title">Featured, published &amp; recognised</h2>
+        </div>
+        <p>International engagement, editorial features and legal-awareness writing from our practice.</p>
+      </div>
+      <Publications />
     </div>
   </section>
   <CTA />

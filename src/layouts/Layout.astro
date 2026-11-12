@@ -76,7 +76,7 @@ const siteSchema = {
         "Hyderabad law firm led by Advocate Siri Swathi Katragadda, advising on civil, criminal, family, property, consumer and corporate matters.",
       email: contact.email,
       telephone: "+917660000787",
-      founder: { "@id": `${siteUrl}founder/#person` },
+      founder: { "@id": `${siteUrl}about/#person` },
       address: {
         "@type": "PostalAddress",
         streetAddress:
@@ -94,11 +94,11 @@ const siteSchema = {
     },
     {
       "@type": "Person",
-      "@id": `${siteUrl}founder/#person`,
+      "@id": `${siteUrl}about/#person`,
       name: "Siri Swathi Katragadda",
       jobTitle: "Advocate & Founder",
       worksFor: { "@id": `${siteUrl}#organization` },
-      url: `${siteUrl}founder/`,
+      url: `${siteUrl}about/`,
     },
     {
       "@type": "WebSite",
@@ -280,7 +280,6 @@ const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
           {[
             ["Home", "/"],
             ["About the Firm", "/about/"],
-            ["Our Founder", "/founder/"],
             ["Practice Areas", "/practice-areas/"],
             ["Team", "/team/"],
             ["Success Stories", "/success-stories/"],

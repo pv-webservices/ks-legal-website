@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { publications } from "../data/publications";
+---
+
+<div class="publication-list">
+  {publications.map((p, i) => (
+    <article class="publication" id={p.id} data-reveal style={`--d:${(i % 2) * 90}ms`}>
+      <div class="publication-media">
+        <Image
+          src={p.image}
+          alt={p.alt}
+          widths={[420, 640, 900]}
+          sizes="(max-width: 760px) 92vw, 420px"
+          format="webp"
+          loading="lazy"
+          style={p.pos ? `--pos:${p.pos}` : undefined}
+        />
+      </div>
+      <div class="publication-body">
+        <div class="article-meta">
+          <span class="tag">{p.date}</span>
+          <span>{p.source}</span>
+        </div>
+        <h3>{p.title}</h3>
+        {p.body.map((para) => <p>{para}</p>)}
+        <div class="publication-links">
+          {p.links.map((l) =>
+            l.external ? (
+              <a class="text-link" href={l.href} target="_blank" rel="noopener">
+                {l.label} <Icon name="file" size={16} />
+              </a>
+            ) : (
+              <a class="text-link" href={l.href}>
+                {l.label} <Icon name="arrow" size={16} />
+              </a>
+            ),
+          )}
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

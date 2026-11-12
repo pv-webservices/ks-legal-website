@@ -22,7 +22,7 @@ const schema = {
   datePublished: f.date,
   dateModified: f.updated ?? f.date,
   image: new URL(schemaImage.src, Astro.site).href,
-  author: { "@type": "Person", "@id": `${siteUrl}founder/#person`, name: "Siri Swathi Katragadda", url: `${siteUrl}founder/` },
+  author: { "@type": "Person", "@id": `${siteUrl}about/#person`, name: "Siri Swathi Katragadda", url: `${siteUrl}about/` },
   publisher: { "@id": `${siteUrl}#organization`, name: siteName },
   mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
   inLanguage: "en-IN",

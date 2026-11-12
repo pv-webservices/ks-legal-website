@@ -5,13 +5,43 @@ import Founder from "../components/Founder.astro";
 import CTA from "../components/CTA.astro";
 import { values } from "../data/site";
 import Icon from "../components/Icon.astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import consultation from "../assets/illustrations/consultation.webp";
+import portrait from "../assets/people/founder-supreme-court.jpeg";
+import iba1 from "../assets/events/iba-denmark-1.jpeg";
+import iba2 from "../assets/events/iba-denmark-2.jpeg";
+import { IBA_BROCHURE } from "../data/publications";
+
+// Full-size views are optimised WebP rather than the original camera files.
+const [iba1Large, iba2Large, portraitLarge] = await Promise.all(
+  [iba1, iba2, portrait].map((src) => getImage({ src, width: 1600, format: "webp" })),
+);
+const ibaThemes = [
+  ["globe", "Cross-border business", "International commercial relationships require robust contract management, clear allocation of risk and awareness of regulatory obligations."],
+  ["scale", "Dispute resolution", "Exposure to international arbitration practices and evolving legal frameworks strengthens dispute strategy and the assessment of remedies."],
+  ["laptop", "Technology & AI", "Discussions on technology and AI underline transparency, accountability, data protection and ethical use in legal services."],
+  ["users", "Global cooperation", "Constructive engagement between the legal profession, industry and public institutions supports practical collaboration."],
+];
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  mainEntity: {
+    "@type": "Person",
+    "@id": new URL("/about/#person", Astro.site).href,
+    name: "Siri Swathi Katragadda",
+    jobTitle: "Advocate & Founder",
+    image: new URL(portraitLarge.src, Astro.site).href,
+    worksFor: { "@id": new URL("/#organization", Astro.site).href },
+    award: "Young Researcher Award (InSc)",
+    knowsAbout: ["Civil litigation", "Criminal law", "Family law", "Property law", "Corporate advisory", "International arbitration", "Governance and public policy"],
+  },
+};
 ---
 
 <Layout
   title="About Our Firm"
-  description="Meet KS Legal Consultants, Hyderabad: a practice grounded in integrity, practical legal advice and a personal commitment to clients."
+  description="Meet KS Legal Consultants, Hyderabad, and its founder Advocate Siri Swathi Katragadda, including her participation in the IBA Annual Conference 2026 in Copenhagen."
+  schema={personSchema}
 >
   <PageHero
     eyebrow="About the firm"
@@ -71,6 +101,135 @@ import consultation from "../assets/illustrations/consultation.webp";
     </div>
   </section>
   <Founder />
+
+  <!-- IBA COPENHAGEN 2026 -->
+  <section class="section practice-section" id="iba-copenhagen-2026" aria-labelledby="iba-title">
+    <div class="container split-content">
+      <div data-reveal="left">
+        <a class="iba-poster" href={iba1Large.src} aria-label="View IBA Annual Conference 2026 Copenhagen photograph">
+          <Image
+            src={iba1}
+            alt="Advocate Siri Swathi Katragadda at the IBA Annual Conference 2026, Copenhagen, Denmark"
+            widths={[480, 720]}
+            sizes="(max-width: 960px) 92vw, 480px"
+            format="webp"
+            loading="lazy"
+          />
+        </a>
+      </div>
+      <div data-reveal>
+        <p class="kicker"><span></span>International Engagement · October 2026</p>
+        <h2 id="iba-title">From Hyderabad to Copenhagen</h2>
+        <p class="lead">
+          Advocate Siri Swathi Katragadda attended the International Bar
+          Association (IBA) Annual Conference 2026 in Copenhagen, Denmark, as
+          part of a delegation of advocates from South India representing
+          Viswa Samudra Group.
+        </p>
+        <p>
+          The IBA Annual Conference brings together legal practitioners,
+          arbitration experts, members of the judiciary and thought leaders from
+          across the world. Its programme examines contemporary legal
+          challenges and how law can respond to an increasingly interconnected
+          global economy.
+        </p>
+        <h3>Why the dialogue matters</h3>
+        <p>
+          Cross-border matters increasingly call for advisers who understand
+          different legal systems, commercial expectations and
+          dispute-resolution pathways. International forums build that
+          perspective through direct professional exchange, and it now informs
+          the advice our clients receive.
+        </p>
+        <a class="button" href={IBA_BROCHURE} target="_blank" rel="noopener">
+          <span>View Event Brochure (PDF)</span> <Icon name="file" size={18} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="india-denmark-title">
+    <div class="container split-content">
+      <div data-reveal="left">
+        <p class="kicker"><span></span>India–Denmark Engagement</p>
+        <h2 id="india-denmark-title">Building bridges beyond the courtroom</h2>
+        <p>
+          The conference also brought attention to the growing relationship
+          between India and Denmark. The India–Denmark Green Strategic
+          Partnership and the India–EU Free Trade Agreement formed the backdrop
+          for discussions on cooperation, sustainable development, trade and
+          investment.
+        </p>
+        <a class="iba-poster" href={iba2Large.src} aria-label="View IBA Annual Conference 2026 event highlights">
+          <Image
+            src={iba2}
+            alt="Event highlights from the IBA Annual Conference 2026 in Copenhagen, including the Embassy of India programme"
+            widths={[640, 960, 1280]}
+            sizes="(max-width: 960px) 92vw, 520px"
+            format="webp"
+            loading="lazy"
+          />
+        </a>
+      </div>
+      <div class="timeline" data-reveal>
+        <div>
+          <h3>IBA Annual Conference</h3>
+          <p>
+            Sessions on international arbitration and dispute resolution,
+            emerging legal issues and the role of technology and AI, disclosure
+            obligations and ethical standards, and cross-border transactions and
+            regulatory compliance.
+          </p>
+        </div>
+        <div>
+          <h3>Embassy of India, Copenhagen</h3>
+          <p>
+            A special programme for visiting Indian legal professionals on the
+            India–Denmark Green Strategic Partnership and the India–EU Free
+            Trade Agreement, and the role of lawyers in facilitating
+            cross-border business and managing legal risk.
+          </p>
+        </div>
+        <div>
+          <h3>Asia House reception</h3>
+          <p>
+            A delegation gathering that provided an opportunity for professional
+            interaction and networking with the wider international legal
+            community.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section practice-section" aria-labelledby="iba-themes-title">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div>
+          <p class="kicker"><span></span>Key Themes &amp; Insights</p>
+          <h2 id="iba-themes-title">Perspectives for a connected world</h2>
+        </div>
+        <p>What the conference means for corporate and commercial clients working with cross-border counterparties.</p>
+      </div>
+      <div class="iba-themes">
+        {ibaThemes.map(([icon, title, text], i) => (
+          <div class="iba-theme" data-reveal="zoom" data-touch style={`--d:${i * 100}ms`}>
+            <span class="icon-badge"><Icon name={icon} size={26} /></span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+      <blockquote class="iba-quote" data-reveal>
+        <p>
+          “International legal forums provide valuable insights into emerging
+          arbitration practices, evolving commercial frameworks and the legal
+          considerations that shape international business relationships.”
+        </p>
+        <footer>— Adv. Siri Swathi Katragadda</footer>
+      </blockquote>
+    </div>
+  </section>
   <section class="section">
     <div class="container split-content">
       <div data-reveal="left">

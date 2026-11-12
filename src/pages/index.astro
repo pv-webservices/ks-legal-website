@@ -3,9 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import founderDesk from "../assets/people/founder-office.jpeg";
 import team from "../assets/firm/legal-team-high-court.webp";
-import editorial1 from "../assets/people/founder-supreme-court.jpeg";
-import editorial2 from "../assets/editorial/femhonour-feature.jpeg";
-import newspaper from "../assets/editorial/property-awareness-column.jpeg";
 import pillars from "../assets/illustrations/hero-pillars.webp";
 import library from "../assets/illustrations/library.webp";
 import consultation from "../assets/illustrations/consultation.webp";
@@ -20,18 +17,14 @@ import MapEmbed from "../components/MapEmbed.astro";
 import { values, stats, process, practices, faqs } from "../data/site";
 import { expertise } from "../data/expertise";
 import { services } from "../data/services";
+import { publications } from "../data/publications";
 const tabGroups = [
   { id: "expertise", label: "Our Expertise", href: "/expertise/", items: expertise },
   { id: "services", label: "Our Services", href: "/services/", items: services },
 ];
 
 
-const media = [
-  { src: editorial1, alt: "Advocate Siri Swathi Katragadda outside the Supreme Court of India", title: "Appearing before the Supreme Court of India", source: "Adv. Siri Swathi Katragadda", href: "/founder/", pos: "50% 30%" },
-  { src: editorial2, alt: "Femhonour, September 2025, page 19: awards and interview", title: "Awards, achievements & interview", source: "Femhonour · September 2025 · p.19", href: "/founder/" },
-  { src: newspaper, alt: "Newspaper column by Katragadda Siri Swathi: The House of Dreams, or the Beginning of Disaster?", title: "The House of Dreams, or the Beginning of Disaster?", source: "Legal awareness column by the founder", href: "/insights/property-due-diligence/", pos: "4% 50%" },
-  { src: team, alt: "KS Legal team at the Andhra Pradesh High Court", title: "Success at the A.P. High Court", source: "K.S. Legal Team", href: "/success-stories/", pos: "40% 30%" },
-];
+const media = publications.map((p) => ({ ...p, href: `/insights/#${p.id}` }));
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -276,12 +269,13 @@ const faqSchema = {
       {media.map((m) => (
         <a class="media-card" href={m.href} data-touch>
           <span class="media-img">
-            <Image src={m.src} alt={m.alt} widths={[420, 640, 900]} sizes="(max-width: 700px) 78vw, 380px" format="webp" loading="lazy" style={m.pos ? `--pos:${m.pos}` : undefined} />
+            <Image src={m.image} alt={m.alt} widths={[420, 640, 900]} sizes="(max-width: 700px) 78vw, 380px" format="webp" loading="lazy" style={m.pos ? `--pos:${m.pos}` : undefined} />
           </span>
           <span class="media-body">
             <small>{m.source}</small>
             <strong>{m.title}</strong>
-            <span class="card-link">View <Icon name="arrow" size={15} /></span>
+            <span class="media-summary">{m.summary}</span>
+            <span class="card-link">Read more <Icon name="arrow" size={15} /></span>
           </span>
         </a>
       ))}

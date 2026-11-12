@@ -30,3 +30,9 @@
   from = "/index.html"
   to = "/"
   status = 301
+
+# The standalone founder profile was merged into the About page.
+[[redirects]]
+  from = "/founder/*"
+  to = "/about/"
+  status = 301

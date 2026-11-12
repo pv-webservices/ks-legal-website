@@ -778,3 +778,63 @@ blockquote p {
     margin-left: calc(48px + 1rem);
   }
 }
+
+/* ============ About: IBA Copenhagen 2026 ============ */
+#iba-copenhagen-2026 {
+  scroll-margin-top: var(--header-h);
+}
+.iba-poster {
+  display: block;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+.split-content > :first-child > .iba-poster:first-child {
+  margin-top: 0;
+}
+.iba-poster img {
+  transition: scale 0.8s var(--ease);
+}
+.iba-poster:hover img {
+  scale: 1.03;
+}
+.iba-themes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+.iba-theme {
+  padding: 1.5rem;
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.iba-theme h3 {
+  margin: 1rem 0 0.4rem;
+  font-size: 1.3rem;
+}
+.iba-theme p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.iba-quote {
+  max-width: 820px;
+  margin: 2.5rem auto 0;
+}
+.iba-quote footer {
+  margin-top: 0.8rem;
+  font: 600 0.9rem var(--sans);
+  color: var(--gold-deep);
+}
+@media (max-width: 960px) {
+  .iba-themes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .iba-themes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
