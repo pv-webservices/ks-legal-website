@@ -4,6 +4,7 @@ import supremeCourt from "../assets/people/founder-supreme-court.jpeg";
 import femhonour from "../assets/editorial/femhonour-feature.jpeg";
 import propertyColumn from "../assets/editorial/property-awareness-column.jpeg";
 import highCourtTeam from "../assets/firm/legal-team-high-court.webp";
+import ipaClipping from "../assets/editorial/the-hindu-ipa-umesh-chandra.jpeg";
 
 export const IBA_BROCHURE = "/documents/iba-denmark-event.pdf";
 
@@ -48,6 +49,22 @@ export const publications: Publication[] = [
       { label: "Read about the engagement", href: "/about/#iba-copenhagen-2026" },
       { label: "View event brochure (PDF)", href: IBA_BROCHURE, external: true },
     ],
+  },
+  {
+    id: "the-hindu-ipa",
+    image: ipaClipping,
+    alt: "The Hindu news clipping: Proposed IPA by A.P. govt. seeks to shield investors, quoting Advocate P.V.G. Umesh Chandra",
+    pos: "0% 0%",
+    source: "The Hindu · Vijayawada",
+    title: "Proposed IPA by A.P. govt. seeks to shield investors",
+    date: "In the news",
+    summary:
+      "Adv. P.V.G. Umesh Chandra quoted in The Hindu on Andhra Pradesh's proposed Investment Protection Act.",
+    body: [
+      "The Hindu reported on the Investment Protection Act (IPA) proposed by the Andhra Pradesh government, a legislative measure intended to protect investments in the State from abrupt policy reversals and to prevent damage rather than fight fires later.",
+      "Speaking to the newspaper, our partner Advocate P.V.G. Umesh Chandra of the Andhra Pradesh High Court explained that the IPA is specifically intended to curb the ‘arbitrary menace’ of overturning laws passed by a particular government, thereby boosting much-needed investor confidence.",
+    ],
+    links: [{ label: "Meet Adv. Umesh Chandra PVG", href: "/team/#profile-umesh" }],
   },
   {
     id: "supreme-court",

@@ -287,7 +287,10 @@ export const coreTeam = [
     name: "Adv. Ansuya",
     text: "Practicing before the Supreme Court, Adv. Ansuya contributes sharp legal acumen, rigorous research, and dedicated advocacy to complex constitutional and civil matters.",
   },
-  { name: "Umesh Chandra PVG", text: "" },
+  {
+    name: "Adv. Umesh Chandra PVG",
+    text: "A gold medallist in Law practising before the High Courts of Andhra Pradesh and Telangana, Adv. Umesh Chandra brings constitutional, criminal and public interest litigation expertise, committed to constitutional values, strategic advocacy and the pursuit of justice.",
+  },
 ];
 export const team = [
   {
@@ -311,6 +314,16 @@ export const team = [
     ],
   },
   {
+    name: "Umesh Chandra PVG",
+    role: "Partner",
+    image: "umesh",
+    credentials: "Gold Medallist in Law, Osmania University",
+    bio: [
+      "A distinguished first-generation Advocate with over 8 years of independent legal practice before the High Courts of Andhra Pradesh and Telangana. A gold medallist in Law from Osmania University and a former IT professional at Tata Consultancy Services, he brings a unique blend of analytical excellence and legal expertise.",
+      "His practice focuses on Constitutional Law, Criminal Law, Public Interest Litigation and strategic litigation. Having handled approximately 500 cases, he has also contributed extensively to legal journalism, publications and national television debates on matters of public importance. He is committed to constitutional values, strategic advocacy and the pursuit of justice.",
+    ],
+  },
+  {
     name: "Durga",
     role: "Associate Advocate",
     image: "durga",
@@ -326,8 +339,17 @@ export const team = [
     image: "manjunath",
     credentials: "LL.B., Karnataka State Law University",
     bio: [
-      "Kalikar Manjunath is a dedicated Advocate who completed his LL.B. from Karnataka State Law University. He was enrolled as an Advocate in 2021 and has been actively practicing since then. His practice covers Civil, Criminal, Family, Consumer, and Land Acquisition matters.",
-      "He represents clients with a focus on careful legal analysis, effective advocacy, and practical solutions. He is committed to understanding each client’s concerns and providing professional and client-focused legal assistance. With continuous experience in diverse areas of law, he strives to uphold integrity, diligence, and justice in his legal practice.",
+      "Kalikar Manjunath is a dedicated Advocate who completed his LL.B. from Karnataka State Law University. He enrolled as an Advocate in 2021 and has practised since then before the Raichur District Court and the High Court of Karnataka (Kalaburgi Bench). His practice covers Civil, Criminal, Family, Consumer, and Land Acquisition matters.",
+      "He represents clients with a focus on careful legal analysis, effective advocacy, and practical solutions. He is committed to understanding each client’s concerns and providing professional and client-focused legal assistance. With experience across diverse areas of law, he strives to uphold integrity, diligence, and justice in his practice.",
+    ],
+  },
+  {
+    name: "Madhavi Karra",
+    role: "Associate Advocate",
+    image: "madhavi",
+    bio: [
+      "Madhavi Karra specialises in commercial and civil litigation, contractual disputes, real estate matters, arbitration, consumer disputes, family disputes and company law matters.",
+      "She brings a practical, solution-oriented approach to complex legal matters, focusing on strategic advocacy, effective dispute resolution and achieving timely outcomes for clients.",
     ],
   },
   {

@@ -10,9 +10,11 @@ import hemanth from "../assets/people/partner-hemanth-kumar.jpeg";
 import durga from "../assets/people/associate-durga.jpeg";
 import manjunath from "../assets/people/associate-kalikar-manjunath.jpeg";
 import rampraveen from "../assets/people/associate-rampraveen-reddy-guda.jpeg";
+import umesh from "../assets/people/partner-umesh-chandra-pvg.jpeg";
+import madhavi from "../assets/people/associate-madhavi-karra.jpeg";
 import group from "../assets/firm/legal-team-high-court.webp";
 import { coreTeam, team } from "../data/site";
-const images = { mirza, hemanth, durga, manjunath, rampraveen };
+const images = { mirza, hemanth, umesh, durga, manjunath, madhavi, rampraveen };
 ---
 
 <Layout
@@ -85,7 +87,7 @@ const images = { mirza, hemanth, durga, manjunath, rampraveen };
             <div class="profile-body">
               <p class="team-role">{person.role}</p>
               <h3 id={`profile-${person.image}`}>Advocate {person.name}</h3>
-              <p class="profile-credentials">{person.credentials}</p>
+              {person.credentials && <p class="profile-credentials">{person.credentials}</p>}
               {person.bio.map((paragraph) => <p>{paragraph}</p>)}
             </div>
           </article>
